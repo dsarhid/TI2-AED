@@ -4,20 +4,37 @@
 #include <conio.h>
 
 //--------------------------------ARCHIVOS-----------------------------------
+
 FILE *	Veterinarios;
+FILE *  Asistentes;
+FILE *	Mascotas;
 
 
 
 //-------------------------------REGISTROS-----------------------------------
+struct fec{
+	int dia, mes, anio;
+};
 struct med{
-	float liquidacion;
 	int dni;
 	char apellidoYNombre[60], matricula[30], password[30], telefono[25] ,usuario[30];
 };
+struct asist{
+	int cantRegistros;
+	char apellidoYNombre[30], usuario[10], contrasenia[10];
+};
+struct masc{
+	int dni, peso;
+	char apellidoYNombre[60], localidad[0], evol[380], domicilio[60];
+	//struct fec fechaAtencion;
+	struct fec fechaNacimiento;
+	bool borrado;
+};
+
 
 med veterinario;
-
-
+asist asistente;
+masc mascota;
 
 
 // --------------------------------FUNCIONES---------------------------------
@@ -85,7 +102,7 @@ int contadorNum(char cadena[]){  //funcion cuenta la cantidad de numeros que hay
 	return cont;
 }
 
-
+//Cadena de caracteres especiales con valores ASCII
 char ASCII[] = {160, 130, 161, 162, 163, 32, 181, 144, 214, 224, 233, 132, 137, 139, 148, 129, 142, 211, 216, 153, 154, 64, 168, 63, 173, 33, 58, 57, 92, 34, 39, 40, 41, 91, 93, 123, 125, 174, 175, 36, 156, 190, 189, 207, 169, 184, 166, 167, 248};
 
 
@@ -102,7 +119,7 @@ void validaCarEsp(char cadena[], int &cont){ //funcion para validad caracteres e
 }
 
 
-void numConsecutivos(char cadena[], int &cont){
+void numConsecutivos(char cadena[], int &cont){ //Funcion que cuneta la cantidad de numeros consecutivos
 	cont = 0;
 	
 	for(int i=0;i<strlen(cadena);i++){
@@ -142,8 +159,7 @@ void numConsecutivos(char cadena[], int &cont){
 	}
 }
 
-
-void letConsecutivas(char cadena[], int &cont){  //funcion letra consecutivas
+void letConsecutivas(char cadena[], int &cont){  //funcion letras consecutivas
 	cont = 0;
 	int esp = 0;
 	
@@ -153,4 +169,10 @@ void letConsecutivas(char cadena[], int &cont){  //funcion letra consecutivas
 			cont += 1;
 		}
 	}
+}
+
+void convertirFecha(int vFecha, int &dia, int &mes, int &anio){
+	anio = vFecha % 10000;
+	mes = ((vFecha % 1000000) - anio) / 10000;
+	dia = ((vFecha % 100000000) - mes) / 1000000;
 }
