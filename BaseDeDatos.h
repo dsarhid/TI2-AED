@@ -5,17 +5,22 @@
 
 //--------------------------------ARCHIVOS-----------------------------------
 FILE *	Veterinarios;
+FILE *  Asistentes;
 
 
 
 //-------------------------------REGISTROS-----------------------------------
 struct med{
-	float liquidacion;
 	int dni;
 	char apellidoYNombre[60], matricula[30], password[30], telefono[25] ,usuario[30];
 };
 
+struct asist{
+	char apellidoYNombre[30], usuario[30], password[30];
+};
+
 med veterinario;
+asist asistente;
 
 
 

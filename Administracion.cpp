@@ -249,7 +249,23 @@ main(){
 			break;
 		
 		    case 2:
-			
+			    Asistentes = fopen("Asistentes.dat", "a+b"); // Se abre archivo Asistentes 
+				
+				printf("\nComplete los siguientes datos del Asistente:\n\n");
+				printf("Nombre: ");
+				_flushall();
+				scanf("%s", &nom);
+				printf("Apellido: ");
+				_flushall();
+				scanf("%s", &apel);
+				strcat(nom, " ");
+				strcat(nom, apel);
+				strcpy(asistente.apellidoYNombre, nom); //copiar el contenido en otra cadena
+				system("cls");
+				
+				
+			    fclose(Asistentes); //Se cierra archivo Asistentes
+					
 			break;
 		
 		}
