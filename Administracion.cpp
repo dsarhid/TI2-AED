@@ -84,8 +84,8 @@ main(){
 					else{
 						cumpleD = true;
 					}	
-					contNum = contadorNum(usrVet); // llamada contador de caracteres numeros
-					
+					contNum = contadorNum(usrVet); // Llamada contador de caracteres numeros
+					//Se utiliza el contador de caracteres numeros para saber si cumple con la condicion C  
 					if(contNum > 3){
 						printf("Usuario no cumple con la condicion \"C.\"\n");
 					}
@@ -93,27 +93,27 @@ main(){
 						cumpleC = true;
 					}
 					
-					strcpy(cadAux, usrVet); // se utiliza una cadena auxiliar para traspasar el usuario ingresado
-					strupr(cadAux); // convertidor a mayusculas
+					strcpy(cadAux, usrVet); // Se utiliza una cadena auxiliar para copiar el usuario ingresado
+					strupr(cadAux); // Convertidor a mayusculas
 					
-					for(int i=0;i<strlen(usrVet);i++){ //utilizacion de for para contar las letras mayusculas
+					for(int i=0;i<strlen(usrVet);i++){ //Utilizacion de for para contar las letras mayusculas
 						if((usrVet[i] == cadAux[i]) && (usrVet[i] != 0  || usrVet[i] != 1 || usrVet[i] != 2 || usrVet[i] != 3 || usrVet[i] != 4 || usrVet[i] != 5 || usrVet[i] != 6 || usrVet[i] != 7 || usrVet[i] != 8 || usrVet[i] != 9)){
-							contMayus += 1; // contador de mayusculas
+							contMayus += 1; // Contador de mayusculas
 						}
 					}
-					if(contMayus < 2){ //si el valor del contador es menor a 2 el usuario es erroneo
+					if(contMayus < 2){ //Si el valor del contador es menor a 2 el usuario es erroneo
 						printf("Usuario no cumple con la condicion \"B.\"\n");
 					}
 					else{
-						cumpleB = true; // si cumple el valor es verdadero
+						cumpleB = true; // Si cumple el valor es verdadero
 					}
 					
-					if(usrVet[0] == cadAux[0]){ //se aprovecha que la cadena auxiliar esta en mayusculas para saber si la primera letra esta en minusculas
+					if(usrVet[0] == cadAux[0]){ //Se aprovecha que la cadena auxiliar esta en mayusculas para saber si la primera letra esta en minusculas
 						printf("Usuario no cumple con la condicion \"A.\"\n");
 					}
 					else{
 						
-						strlwr(cadAux); //convertidor de mayusculas a minusculas
+						strlwr(cadAux); //Convertidor de mayusculas a minusculas
 						//Se averigua si el primer caracter es un numero
 						if(usrVet[0] == 0 || usrVet[0] == 1 || usrVet[0] == 2 || usrVet[0] == 3 || usrVet[0] == 4 || usrVet[0] == 5 || usrVet[0] == 6 || usrVet[0] == 7 || usrVet[0] == 8 || usrVet[0] == 9){
 							printf("Usuario no cumple con la condicion \"A.\"\n");
@@ -128,14 +128,14 @@ main(){
 						}
 					}
 					
-					//Se junta todos los valores booleanos falsos para volver a pedir que ingrese un Usuario correcto
+					//Se agrupan todos los valores booleanos falsos para volver a pedir que ingrese un Usuario correcto
 					if(cumpleA == false || cumpleB == false || cumpleC == false || cumpleD == false){
 						
 						printf("\nPresione una tecla para volver a ingresar...");
 						getch();
 						system("cls");
 					}
-					//Se junta todos los valores booleanos verdaderos para cambiar el valor de la bandera b
+					//Se agrupan todos los valores booleanos verdaderos para cambiar el valor de la bandera b
 					if(cumpleA == true && cumpleB == true && cumpleC == true && cumpleD == true){
 						b = 0;
 					}
@@ -161,25 +161,26 @@ main(){
 					_flushall();
 					scanf("%s", &pass);
 					
-					strcpy(cadAux, pass); // se utiliza una cadena auxiliar para traspasar la contraseña ingresada
-					strupr(cadAux); // convertir a mayusculas
+					strcpy(cadAux, pass); // Se utiliza una cadena auxiliar para copiar la contraseña ingresada
+					strupr(cadAux); // Convertir a mayusculas
 					
-					for(int i=0;i<strlen(pass);i++){ //contador de mayusculas, pero se verifica si no es un numero primero
+					for(int i=0;i<strlen(pass);i++){ //Contador de mayusculas, pero se verifica si no es un numero primero
 						if((pass[i] == cadAux[i]) && (pass[i] != 0  || pass[i] != 1 || pass[i] != 2 || pass[i] != 3 || pass[i] != 4 || pass[i] != 5 || pass[i] != 6 || pass[i] != 7 || pass[i] != 8 || pass[i] != 9)){
 							contMayus += 1;
 						}
 					}
 					
-					strlwr(cadAux); // convertidor de mayusculas a minusculas
+					strlwr(cadAux); // Convertidor de mayusculas a minusculas
 					
-					for(int i=0;i<strlen(pass);i++){ //contador de minusculas, antes vericando si no es un numero
+					for(int i=0;i<strlen(pass);i++){ //Contador de minusculas, antes vericando si no es un numero
 						if((pass[i] == cadAux[i]) && (pass[i] != 0  || pass[i] != 1 || pass[i] != 2 || pass[i] != 3 || pass[i] != 4 || pass[i] != 5 || pass[i] != 6 || pass[i] != 7 || pass[i] != 8 || pass[i] != 9)){
 							contMinus += 1;
 						}
 					}
-					contNum = contadorNum(pass);  //llamada contador de caracteres numeros 
+					contNum = contadorNum(pass);  //LLamada contador de caracteres numeros 
 					
-					if(contMayus < 1){ //condiciones de la contraseña
+					//Se utilizan los contadores anteriores para saber si se cumple con las condiciones almenos 1 mayuscula, 1 minuscula y 1 numero
+					if(contMayus < 1){ 
 						printf("Contrase%ca no cumple con la condicion \"A.\"\n", -92);
 					}
 					else if(contMinus < 1){
@@ -192,8 +193,8 @@ main(){
 						cumpleA = true;
 					}
 					
-					validaCarEsp(pass, contEsp); // llamada a la funcion para validar caracteres especiales, pasando la cadena y el contador de caracteres
-					
+					validaCarEsp(pass, contEsp); // Llamada a la funcion para validar caracteres especiales, pasando la cadena y el contador de caracteres
+					//Se utiliza el contador de caracteres especiales para saber si cumple con la condicion B
 					if(contEsp >= 1){
 						printf("Contrase%ca no cumple con la condicion \"B.\"\n", -92);
 					}
@@ -201,7 +202,7 @@ main(){
 						cumpleB = true;
 					}
 					
-					if(strlen(pass) < 6 || strlen(pass) > 32){  //condicion de longitud 
+					if(strlen(pass) < 6 || strlen(pass) > 32){  //Se filtra la condicion de longitud del apartado C 
 						printf("Contrase%ca no cumple con la condicion \"C.\"\n", -92);
 					}
 					else{
