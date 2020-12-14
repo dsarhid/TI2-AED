@@ -33,7 +33,7 @@ main(){
 	bool notFound = true, cumpleA = false, cumpleB = false, cumpleC = false, cumpleD = false, cumpleE = false;
 	
 	while(op != 6){
-		menu(op); // llamada a la funcion menu
+		menu(op); // Llamada a la funcion menu
 		system("cls");
 		
 		switch (op){
@@ -66,10 +66,10 @@ main(){
 					contMayus = 0, contMinus = 0, contNum = 0;
 					
 					printf("\nIngrese Usuario: \n");
-					printf("\n\ta. Comenzar con una letra minuscula.");
-					printf("\n\tb. Tener al menos 2 letras mayusculas.");
-					printf("\n\tc. Tener como maximo 3 numeros.");
-					printf("\n\td. Minimo 6 y maximo de 10 caracteres de longitud.\n\n");
+					printf("\n\tA. Comenzar con una letra minuscula.");
+					printf("\n\tB. Tener al menos 2 letras mayusculas.");
+					printf("\n\tC. Tener como maximo 3 numeros.");
+					printf("\n\tD. Minimo 6 y maximo de 10 caracteres de longitud.\n\n");
 					printf("Usuario: ");
 					_flushall();
 					scanf("%s", &usrVet);					
@@ -149,12 +149,12 @@ main(){
 					system("cls");
 					
 					printf("\nIngrese contrase%ca: \n", -92); // se escribe de esa manera para que aparezca la ñ por pantalla
-					printf("\n\ta. Debera contener al menos una letra mayuscula, una letra minuscula y un numero.");
-					printf("\n\tb. No podra contener ningun caracter de puntuacion,");
+					printf("\n\tA. Debera contener al menos una letra mayuscula, una letra minuscula y un numero.");
+					printf("\n\tB. No podra contener ningun caracter de puntuacion,");
 					printf("\n\t   ni acentos, ni espacios. Solo caracteres alfanumericos.");
-					printf("\n\tc. Debera tener entre 6 y 32 caracteres.");
-					printf("\n\td. No debe tener mas de 3 caracteres numericos consecutivos.");
-					printf("\n\te. No debe tener 2 caracteres consecutivos que refieran a letras");
+					printf("\n\tC. Debera tener entre 6 y 32 caracteres.");
+					printf("\n\tD. No debe tener mas de 3 caracteres numericos consecutivos.");
+					printf("\n\tE. No debe tener 2 caracteres consecutivos que refieran a letras");
 					printf("\n\t   alfabeticamente consecutivas (ascendentemente). Este criterio");
 					printf("\n\t   es valido tanto para letras mayusculas, minusculas o combinacion de ambas.\n\n");
 					printf("Contrase%ca: ", -92);
@@ -270,10 +270,10 @@ main(){
 					cumpleA = false, cumpleB = false, cumpleC = false, cumpleD = false, cumpleE = false;
 					contMayus = 0, contMinus = 0, contNum = 0;
 					printf("\nIngrese Usuario: \n");
-					printf("\n\ta. Comenzar con una letra minuscula.");
-					printf("\n\tb. Tener al menos 2 letras mayusculas.");
-					printf("\n\tc. Tener como maximo 3 numeros.");
-					printf("\n\td. Minimo 6 y maximo de 10 caracteres de longitud.\n\n");
+					printf("\n\tA. Comenzar con una letra minuscula.");
+					printf("\n\tB. Tener al menos 2 letras mayusculas.");
+					printf("\n\tC. Tener como maximo 3 numeros.");
+					printf("\n\tD. Minimo 6 y maximo de 10 caracteres de longitud.\n\n");
 					printf("Usuario: ");
 					_flushall();
 					scanf("%s", &usrAst);					
@@ -340,6 +340,112 @@ main(){
 						b = 0;
 					}
 				}
+				
+				
+				b = 1; //Al cambiar el valor de la bandera se acepta el usuario y solicita contraseña del mismo
+				
+				while(b != 0){
+					cumpleA = false, cumpleB = false, cumpleC = false, cumpleD = false, cumpleE = false;
+					contMayus = 0, contMinus = 0, contNum = 0;
+					system("cls");
+					printf("\nIngrese contrase%ca: \n", -92);
+					printf("\n\tA. Debera contener al menos una letra mayuscula, una letra minuscula y un numero.");
+					printf("\n\tB. No podra contener ningun caracter de puntuacion,");
+					printf("\n\t   ni acentos, ni espacios. Solo caracteres alfanumericos.");
+					printf("\n\tC. Debera tener entre 6 y 32 caracteres.");
+					printf("\n\tD. No debe tener mas de 3 caracteres numericos consecutivos.");
+					printf("\n\tE. No debe tener 2 caracteres consecutivos que refieran a letras");
+					printf("\n\t   alfabeticamente consecutivas (ascendentemente). Este criterio");
+					printf("\n\t   es valido tanto para letras mayusculas, minusculas o combinacion de ambas.\n\n");
+					printf("Contrase%ca: ", -92);
+					_flushall();
+					scanf("%s", &pass);
+					
+					// Al igual que el caso 1 se codifica de la misma manera el ingreso de contraseña del usuario
+					strcpy(cadAux, pass); //El contenido de la cadena contraseña se copia en la cadAux
+					strupr(cadAux); //Convertidor de minusculas a mayusculas
+					
+					for(int i=0;i<strlen(pass);i++){ //cuenta la cantidad de caracteres mayusculas
+						if((pass[i] == cadAux[i]) && (pass[i] != 0  || pass[i] != 1 || pass[i] != 2 || pass[i] != 3 || pass[i] != 4 || pass[i] != 5 || pass[i] != 6 || pass[i] != 7 || pass[i] != 8 || pass[i] != 9)){
+							contMayus += 1;
+						}
+					}
+					strlwr(cadAux); //Convertidor de mayusculas a minusculas
+					for(int i=0;i<strlen(pass);i++){ //cuenta la cantidad de caracteres minusculas
+						if((pass[i] == cadAux[i]) && (pass[i] != 0  || pass[i] != 1 || pass[i] != 2 || pass[i] != 3 || pass[i] != 4 || pass[i] != 5 || pass[i] != 6 || pass[i] != 7 || pass[i] != 8 || pass[i] != 9)){
+							contMinus += 1;
+						}
+					}
+					contNum = contadorNum(pass); //Llamada a la funcion contador de numeros, cuenta la canitdad de caracteres numeros que existe en la cadena
+					
+					//Utilizando los contadores anteriores verifica si respeta el apartado A 
+					if(contMayus < 1){
+						printf("Contrase%ca no cumple con la condicion \"A.\"\n", -92);
+					}
+					else if(contMinus < 1){
+						printf("Contrase%ca no cumple con la condicion \"A.\"\n", -92);
+					}
+					else if(contNum < 1){
+						printf("Contrase%ca no cumple con la condicion \"A.\"\n", -92);
+					}
+					else{
+						cumpleA = true;
+					}
+					
+					validaCarEsp(pass, contEsp); //Llamada a la funcion que valida caracteres especiales
+					
+					if(contEsp >= 1){ //Utiliza el contador de caracteres especiales para saber si existe uno
+						printf("Contrase%ca no cumple con la condicion \"B.\"\n", -92);
+					}
+					else{
+						cumpleB = true;
+					}
+					
+					if(strlen(pass) < 6 || strlen(pass) > 32){ //Condicion de longitud de la contraseña
+						printf("Contrase%ca no cumple con la condicion \"C.\"\n", -92);
+					}
+					else{
+						cumpleC = true;
+					}
+					
+					numConsecutivos(pass, contNum); //Llamada a la funcion numeros consecutivos 
+					
+					if(contNum > 3){ //Utiliza el contador de numetos consecutivos para ver si cumple con la condicion D
+						printf("Contrase%ca no cumple con la condicion \"D.\"\n", -92);
+					}
+					else{
+						cumpleD = true;
+					}
+					
+					letConsecutivas(pass, contLet); //Llamada a la funcion letras consecutivas
+					
+					if(contLet >= 1){ //Se utiliza el contador de letras consecutivas para saber si existen letras consecutivas
+						printf("Contrase%ca no cumple con la condicion \"E.\"\n", -92);
+					}
+					else{
+						cumpleE = true;
+					}
+					
+					//Se juntan todos los valores booleanos falsos para volver a solicitar una contraseña
+					if(cumpleA == false || cumpleB == false || cumpleC == false || cumpleD == false || cumpleE == false){
+						printf("\nPresione una tecla para volver a ingresar...");
+						getch();
+						system("cls");
+					}
+					//Se juntan todos los valores booleanos verdaderos para aceptar la contraseña, cambiando el valor de la bandera
+					if(cumpleA == true && cumpleB == true && cumpleC == true && cumpleD == true && cumpleE == true){
+						b = 0;
+					}
+				}
+				//Se copia las cadenas en las cadenas de los registros para tener un archivo registro
+				strcpy(asistente.usuario, usrAst);
+				strcpy(asistente.password, pass);
+				
+				fwrite(&asistente, sizeof(asist), 1, Asistentes);
+				
+				printf("\n\n\tAsistenre registrado con exito!. Presione una tecla para continuar...");
+				getch();
+				system("cls");
 				
 				
 				
