@@ -457,6 +457,9 @@ main(){
 			    fclose(Asistentes); //Se cierra archivo Asistentes
 					
 			break;
+			case 3:
+				
+				break;
 		
 		}
     }
