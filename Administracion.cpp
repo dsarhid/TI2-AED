@@ -10,7 +10,7 @@ void menu(int &op){  //Menu para ingresar a administracion
 	printf("\n---------------------- ADMINISTRACION ----------------------\n\n");
 	printf("1.- Registrar Veterinario.\n");
 	printf("2.- Registrar Usuario Asistente.\n");
-	printf("3.-Atenciones por veterinarios .\n");
+	printf("3.- Atenciones por veterinarios .\n");
 	printf("4.- Ranking de Veterinarios por Atenciones.\n");
 	printf("5.- Cerrar aplicacion.\n\n");
 	printf("---------------------- ADMINISTRACION ----------------------\n\n");
@@ -248,7 +248,9 @@ main(){
 				
 			break;
 		
-		
+		    case 2:
+			
+			break;
 		
 		}
     }
