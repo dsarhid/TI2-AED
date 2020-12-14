@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
+#include <conio.h>
 
 void menu(int &op){
-	printf("\nModulo del Asistente ( Recepcion )\n\n");
-	printf("\n=========================\n\n");
+	printf("\nModulo del Asistente ( Recepcion )\n");
+	printf("\n==========================================\n\n");
 	printf("1.- Iniciar Sesion.\n");
 	printf("2.- Registrar Mascota.\n");
 	printf("3.- Registrar Turno.\n");
@@ -24,14 +25,14 @@ void menu(int &op){
 
 main(){
 	system("cls");
-	int op = 0
+	int op = 0;
 	while(op != 5){
 		menu(op);
 		switch (op){
-			case 1:
-			case 2:
-			case 3:
-			case 4:
+			case 1:break;
+			case 2:break;
+			case 3:break;
+			case 4:break;
 		}
 	}
 	system("cls");
