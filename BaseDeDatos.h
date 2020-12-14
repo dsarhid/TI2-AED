@@ -7,6 +7,7 @@
 FILE *	Veterinarios;
 FILE *  Asistentes;
 
+FILE *	Empleados;
 
 
 //-------------------------------REGISTROS-----------------------------------
@@ -14,13 +15,21 @@ struct med{
 	int dni;
 	char apellidoYNombre[60], matricula[30], password[30], telefono[25] ,usuario[30];
 };
-
 struct asist{
 	char apellidoYNombre[30], usuario[30], password[30];
 };
 
+
+struct emp{
+	int cantRegistros;
+	char apellidoYNombre[30], user[30], password[30];
+};
+
+
 med veterinario;
 asist asistente;
+
+emp empleado;
 
 
 
