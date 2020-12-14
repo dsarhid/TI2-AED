@@ -4,6 +4,7 @@
 #include <conio.h>
 
 //--------------------------------ARCHIVOS-----------------------------------
+
 FILE *	Veterinarios;
 FILE *  Asistentes;
 
@@ -22,7 +23,7 @@ struct asist{
 
 struct emp{
 	int cantRegistros;
-	char apellidoYNombre[30], user[30], password[30];
+	char apellidoYNombre[30], usuario[30], contrasenia[30];
 };
 
 

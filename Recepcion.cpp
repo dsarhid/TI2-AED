@@ -28,7 +28,7 @@ main(){
 	system("cls");
 	int op = 0, b = 1, bmenu = 1, log = 0;
 	char usr[10], pass[10], apelYNom[30];
-	bool founded = false;
+	bool coincidir = false;
 	
 	while(op != 5){
 		menu(op);
@@ -58,11 +58,11 @@ main(){
 						scanf("%s", &usr);
 						
 						while(fread(&empleado, sizeof(emp), 1, Empleados) != NULL){		// Lee Empleados hasta final del archivo
-							if(strcmp(usr, empleado.user) == 0){						// Compara usuario leido con el usuario ingresada, se iguala a 0 para ver si son iguales.
-								founded = true;											// Usuario encontrado.
+							if(strcmp(usr, empleado.usuario) == 0){						// Compara usuario leido con el usuario ingresada, se iguala a 0 para ver si son iguales.
+								coincidir = true;										// Usuario encontrado.
 								printf("Ingrese contrasenia: ", -92);
 								scanf("%s", &pass);
-								if(strcmp(pass, empleado.password) == 0){				// Compara contraseña leido con la contraseña ingresada, se iguala a 0 para ver si son iguales.
+								if(strcmp(pass, empleado.contrasenia) == 0){			// Compara contraseña leido con la contraseña ingresada, se iguala a 0 para ver si son iguales.
 									printf("\n\n\tEmpleado logueado con exito. Presione una tecla para continuar...");
 									b = 0;												// Cambio valor de bandera a 0 para salir del while.
 									log = 1;											// Bandera de logeo cambio a 1.
@@ -88,10 +88,10 @@ main(){
 								}
 							}
 							else{
-								founded = false;										// Usuario no encontrado.
+								coincidir = false;										// Usuario no encontrado.
 							}
 						}
-						if(founded == false){
+						if(coincidir == false){
 							printf("Usuario no registrado. Intente nuevamente...");
 							rewind(Empleados);											// Vuelve al principio del archivo.
 							bmenu = 0;													// Bandera menu vuelve a 0.
