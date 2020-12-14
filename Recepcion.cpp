@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+#include "BaseDeDatos.h"
 
 void menu(int &op){
 	printf("\nModulo del Asistente ( Recepcion )\n");
