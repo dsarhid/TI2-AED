@@ -29,7 +29,7 @@ void menu(int &op){  //Menu para ingresar a administracion
 main(){
 	system("cls");
 	int op = 0, b = 1, log = 0, contMayus = 0, contMinus = 0, contNum = 0, contEsp = 0, contLet = 0;
-	char usr[30], pass[30], usrVet[30], cadAux[30], nom[30], apel[30];
+	char usrAst[30], pass[30], usrVet[30], cadAux[30], nom[30], apel[30];
 	bool notFound = true, cumpleA = false, cumpleB = false, cumpleC = false, cumpleD = false, cumpleE = false;
 	
 	while(op != 6){
@@ -262,6 +262,85 @@ main(){
 				strcat(nom, apel);
 				strcpy(asistente.apellidoYNombre, nom); //copiar el contenido en otra cadena
 				system("cls");
+				
+				
+				b = 1; //Se utiliza la bandera de la misma manera que en el case 1
+				
+				while(b != 0){
+					cumpleA = false, cumpleB = false, cumpleC = false, cumpleD = false, cumpleE = false;
+					contMayus = 0, contMinus = 0, contNum = 0;
+					printf("\nIngrese Usuario: \n");
+					printf("\n\ta. Comenzar con una letra minuscula.");
+					printf("\n\tb. Tener al menos 2 letras mayusculas.");
+					printf("\n\tc. Tener como maximo 3 numeros.");
+					printf("\n\td. Minimo 6 y maximo de 10 caracteres de longitud.\n\n");
+					printf("Usuario: ");
+					_flushall();
+					scanf("%s", &usrAst);					
+					printf("\n");
+					
+					//De la misma manera que en case 1, se procese a saber si respeta la longitud requerida
+					if(strlen(usrAst) > 10 || strlen(usrAst) < 6){
+						printf("Usuario no cumple con la condicion \"D.\"\n");
+					}
+					else{
+						cumpleD = true;
+					}
+					
+					contNum = contadorNum(usrAst); //llamada a la funcion para contar numeros en la cadena
+					if(contNum > 3){
+						printf("Usuario no cumple con la condicion \"C.\"\n");
+					}
+					else{
+						cumpleC = true;
+					}
+					
+					strcpy(cadAux, usrAst); // Copia cadena usrAst a cadAux 
+					strupr(cadAux); // convierte a mayusculas la cadAux
+					for(int i=0;i<strlen(usrAst);i++){ //Se procede a saber cuantas letras mayusculas hay, excluyendo a los numeros
+						if((usrAst[i] == cadAux[i]) && (usrAst[i] != 0  || usrAst[i] != 1 || usrAst[i] != 2 || usrAst[i] != 3 || usrAst[i] != 4 || usrAst[i] != 5 || usrAst[i] != 6 || usrAst[i] != 7 || usrAst[i] != 8 || usrAst[i] != 9)){
+							contMayus += 1;
+						}
+					}
+					if(contMayus < 2){  
+						printf("Usuario no cumple con la condicion \"B.\"\n");
+					}
+					else{
+						cumpleB = true;
+					}
+					
+					if(usrAst[0] == cadAux[0]){ //Se aprovecha la cadAux se encuntra en mayusculas para saber si el primer caracter esta en minuscula
+						printf("Usuario no cumple con la condicion \"A.\"\n");
+					}
+					else{
+						strlwr(cadAux); //convertidor de mayusculas a minusculas
+						//Se consulta si el primer caracter es un numero, caso contrario el usuario cumple con la condicion
+						if(usrAst[0] == 0 || usrAst[0] == 1 || usrAst[0] == 2 || usrAst[0] == 3 || usrAst[0] == 4 || usrAst[0] == 5 || usrAst[0] == 6 || usrAst[0] == 7 || usrAst[0] == 8 || usrAst[0] == 9){
+							printf("Usuario no cumple con la condicion \"A.\"\n");
+						}
+						else{
+							if(usrAst[0] == cadAux[0]){
+								cumpleA = true;
+							}
+							else{
+								printf("Usuario no cumple con la condicion \"A.\"\n");
+							}
+						}
+					}
+					
+					//Se juntan todos los valores booleanos falsos para pedir que ingrese un nuevo usuario
+					if(cumpleA == false || cumpleB == false || cumpleC == false || cumpleD == false){
+						printf("\nPresione una tecla para volver a ingresar...");
+						getch();
+						system("cls");
+					}
+					
+					//Se juntan todos los valores booleanos verdaderos para cambiar el valor de bandera y solicitar la contraseña del usuario
+					if(cumpleA == true && cumpleB == true && cumpleC == true && cumpleD == true){
+						b = 0;
+					}
+				}
+				
 				
 				
 			    fclose(Asistentes); //Se cierra archivo Asistentes

@@ -90,7 +90,7 @@ int contadorNum(char cadena[]){  //funcion cuenta la cantidad de numeros que hay
 	return cont;
 }
 
-
+//Cadena de caracteres especiales con valores ASCII
 char ASCII[] = {160, 130, 161, 162, 163, 32, 181, 144, 214, 224, 233, 132, 137, 139, 148, 129, 142, 211, 216, 153, 154, 64, 168, 63, 173, 33, 58, 57, 92, 34, 39, 40, 41, 91, 93, 123, 125, 174, 175, 36, 156, 190, 189, 207, 169, 184, 166, 167, 248};
 
 
@@ -107,7 +107,7 @@ void validaCarEsp(char cadena[], int &cont){ //funcion para validad caracteres e
 }
 
 
-void numConsecutivos(char cadena[], int &cont){
+void numConsecutivos(char cadena[], int &cont){ //Funcion que cuneta la cantidad de numeros consecutivos
 	cont = 0;
 	
 	for(int i=0;i<strlen(cadena);i++){
@@ -148,7 +148,7 @@ void numConsecutivos(char cadena[], int &cont){
 }
 
 
-void letConsecutivas(char cadena[], int &cont){  //funcion letra consecutivas
+void letConsecutivas(char cadena[], int &cont){  //funcion letras consecutivas
 	cont = 0;
 	int esp = 0;
 	
