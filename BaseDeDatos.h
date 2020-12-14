@@ -7,22 +7,34 @@
 
 FILE *	Veterinarios;
 FILE *  Asistentes;
+FILE *	Mascotas;
 
 
 
 //-------------------------------REGISTROS-----------------------------------
+struct fec{
+	int dia, mes, anio;
+};
 struct med{
 	int dni;
 	char apellidoYNombre[60], matricula[30], password[30], telefono[25] ,usuario[30];
 };
 struct asist{
-	char apellidoYNombre[30], usuario[30], contrasenia[30];
+	int cantRegistros;
+	char apellidoYNombre[30], usuario[10], contrasenia[10];
+};
+struct masc{
+	int dni, peso;
+	char apellidoYNombre[60], localidad[0], evol[380], domicilio[60];
+	//struct fec fechaAtencion;
+	struct fec fechaNacimiento;
+	bool borrado;
 };
 
 
 med veterinario;
 asist asistente;
-
+masc mascota;
 
 
 // --------------------------------FUNCIONES---------------------------------
@@ -147,7 +159,6 @@ void numConsecutivos(char cadena[], int &cont){ //Funcion que cuneta la cantidad
 	}
 }
 
-
 void letConsecutivas(char cadena[], int &cont){  //funcion letras consecutivas
 	cont = 0;
 	int esp = 0;
@@ -158,4 +169,10 @@ void letConsecutivas(char cadena[], int &cont){  //funcion letras consecutivas
 			cont += 1;
 		}
 	}
+}
+
+void convertirFecha(int vFecha, int &dia, int &mes, int &anio){
+	anio = vFecha % 10000;
+	mes = ((vFecha % 1000000) - anio) / 10000;
+	dia = ((vFecha % 100000000) - mes) / 1000000;
 }

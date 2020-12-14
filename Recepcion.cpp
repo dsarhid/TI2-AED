@@ -26,8 +26,8 @@ void menu(int &op){
 
 main(){
 	system("cls");
-	int op = 0, b = 1, bmenu = 1, log = 0;
-	char usr[10], pass[10], apelYNom[30];
+	int op = 0, b = 1, bmenu = 1, log = 0, vFecha, dia, mes, anio;
+	char usr[10], pass[10], apelYNom[30], nom[30], apel[30];
 	bool coincidir = false;
 	
 	while(op != 5){
@@ -102,7 +102,81 @@ main(){
 				fclose(Asistentes);														// Cierro archivo
 				}
 			break;
-			case 2:break;
+			case 2:
+				b = 1;
+				
+				if(log == 0){
+					printf("\nAsistente no logueado. No se puede realizar ninguna operacion sin loguearse.");
+					getch();
+					system("cls");
+					break;
+				}
+				else{
+					Asistentes = fopen("Asistentes.dat", "rb");
+					
+					if(Asistentes == NULL){
+						printf("\nNingun asistente registrado. Primero registre un asistente en Administracion.");
+						getch();
+						system("cls");
+						break;
+					}
+					else{
+						Mascotas = fopen("Mascotas.dat", "a+b");					
+					
+						printf("Complete los siguientes datos de la mascota:\n\n");
+						printf("Nombre: ");
+						_flushall();
+						scanf("%s", &nom);
+						printf("Apellido: ");
+						_flushall();
+						scanf("%s", &apel);
+						strcat(nom, " ");
+						strcat(nom, apel);
+						strcpy(mascota.apellidoYNombre, nom);
+						printf("Domicilio: ");
+						_flushall();
+						scanf("%s", &mascota.domicilio);
+						printf("DNI del duenio: ");
+						_flushall();
+						scanf("%i", &mascota.dni);
+						printf("Localidad: ");
+						_flushall();
+						scanf("%s", &mascota.localidad);
+						system("cls");
+						printf("Peso: ");
+						_flushall();
+						scanf("%i", &mascota.peso);
+						printf("Fecha de nacimiento con formato (dd mm aaaa): ");
+						_flushall();
+						scanf("%i", &vFecha);
+						convertirFecha(vFecha, dia, mes, anio);
+						mascota.fechaNacimiento.dia = dia;
+						mascota.fechaNacimiento.mes = mes;
+						mascota.fechaNacimiento.anio = anio;
+						fwrite(&mascota, sizeof(masc), 1, Mascotas);
+						printf("\n\n\tMascota registrada con exito!. Presione una tecla para continuar...");
+						getch();
+						system("cls");
+						
+						fclose(Mascotas);
+						
+						while(fread(&asistente, sizeof(asist), 1, Asistentes) != NULL){
+							if(strcmp(apelYNom, asistente.apellidoYNombre) == 0){
+								if(asistente.cantRegistros == NULL || asistente.cantRegistros == 0){
+									asistente.cantRegistros = 1;
+									fwrite(&asistente, sizeof(asist), 1, Asistentes);
+								}
+								else{
+									asistente.cantRegistros += 1;
+									fwrite(&asistente, sizeof(asist), 1, Asistentes);
+								}
+							}
+						}
+					}
+				}
+				
+				fclose(Asistentes);
+			break;
 			case 3:break;
 			case 4:break;
 		}
