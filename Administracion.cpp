@@ -38,7 +38,7 @@ main(){
 		
 		switch (op){
 			case 1:
-				Veterinarios = fopen("Veterinarios.dat", "a+b");  //abre el archivo veterinarios
+				Veterinarios = fopen("Veterinarios.dat", "a+b");  //Abre el archivo veterinarios
 				
 				printf("\nComplete los siguientes datos del Veterinario:\n\n");
 				printf("Nombre: ");
@@ -208,7 +208,8 @@ main(){
 						cumpleC = true;
 					}
 					
-					numConsecutivos(pass, contNum); //llamada a la funcion para verificar la cantidad de numeros consecutivos
+					numConsecutivos(pass, contNum); //Llamada a la funcion para verificar la cantidad de numeros consecutivos
+					//Se utliza el contador de numeros consecutivas para ver si cumple con la condicion D
 					if(contNum > 3){
 						printf("Contrase%ca no cumple con la condicion \"D.\"\n", -92);
 					}
@@ -216,35 +217,38 @@ main(){
 						cumpleD = true;
 					}
 					
-					letConsecutivas(pass, contLet); //llamada a la funcion para verificar las letras consecutivas 
+					letConsecutivas(pass, contLet); //Llamada a la funcion para verificar las letras consecutivas 
+					//Se utliza el contador de letras consecutivas para ver si cumple con la condicion E
 					if(contLet >= 1){
 						printf("Contrase%ca no cumple con la condicion \"E.\"\n", -92);
 					}
 					else{
 						cumpleE = true;
 					}
-					// Se junta todos los valores booleanos falsos para pedir que ingrese una nueva contraseña
+					// Se agrupan todos los valores booleanos falsos para pedir que ingrese una nueva contraseña
 					if(cumpleA == false || cumpleB == false || cumpleC == false || cumpleD == false || cumpleE == false){
 						printf("\nPresione una tecla para volver a ingresar...");
 						getch();
 						system("cls");
 					}
-					
+					//De la misma manera se agrupan los valores booleanos verdaderos para cambiar el valor de la bandera
+					// y aceptar la contraseña ingresada
 					if(cumpleA == true && cumpleB == true && cumpleC == true && cumpleD == true && cumpleE == true){
 						b = 0;
 					}
 				}
+				// Se copia usuario y contraseña en los correspondientes registros  
 				strcpy(veterinario.usuario, usrVet);
 				strcpy(veterinario.password, pass);
 			
 				
-				fwrite(&veterinario, sizeof(med), 1, Veterinarios);
+				fwrite(&veterinario, sizeof(med), 1, Veterinarios); //Se escribre el usuario y la contraseña en el archivo
 				
 				printf("\n\n\tVeterinario registrado con exito!. Presione una tecla para continuar...");
 				getch();
 				system("cls");
 				
-				fclose(Veterinarios);
+				fclose(Veterinarios); // Cierra archivo Veterinarios
 				
 			break;
 		
