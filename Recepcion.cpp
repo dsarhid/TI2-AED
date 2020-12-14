@@ -34,8 +34,8 @@ main(){
 		menu(op);
 		switch (op){
 			case 1:
-				Empleados = fopen("Empleados.dat", "rb");											// Abro archivo Empleados en modo lectura para binarios.
-				if(Empleados == NULL){
+				Asistentes = fopen("Asistentes.dat", "rb");											// Abro archivo Empleados en modo lectura para binarios.
+				if(Asistentes == NULL){
 					printf("\nNingun Empleado registrado. Presione una tecla para continuar...");
 					getch();
 					system("cls");
@@ -57,23 +57,23 @@ main(){
 						_flushall();
 						scanf("%s", &usr);
 						
-						while(fread(&empleado, sizeof(emp), 1, Empleados) != NULL){		// Lee Empleados hasta final del archivo
-							if(strcmp(usr, empleado.usuario) == 0){						// Compara usuario leido con el usuario ingresada, se iguala a 0 para ver si son iguales.
+						while(fread(&asistente, sizeof(asist), 1, Asistentes) != NULL){		// Lee Empleados hasta final del archivo
+							if(strcmp(usr, asistente.usuario) == 0){						// Compara usuario leido con el usuario ingresada, se iguala a 0 para ver si son iguales.
 								coincidir = true;										// Usuario encontrado.
 								printf("Ingrese contrasenia: ", -92);
 								scanf("%s", &pass);
-								if(strcmp(pass, empleado.contrasenia) == 0){			// Compara contraseña leido con la contraseña ingresada, se iguala a 0 para ver si son iguales.
-									printf("\n\n\tEmpleado logueado con exito. Presione una tecla para continuar...");
+								if(strcmp(pass, asistente.contrasenia) == 0){			// Compara contraseña leido con la contraseña ingresada, se iguala a 0 para ver si son iguales.
+									printf("\n\n\tAsistente logueado con exito. Presione una tecla para continuar...");
 									b = 0;												// Cambio valor de bandera a 0 para salir del while.
 									log = 1;											// Bandera de logeo cambio a 1.
 									bmenu = 0;											// Bandera menu vuelve a 0.
-									strcpy(apelYNom, empleado.apellidoYNombre);			// Copio cadena de apellido y nombre de archivo y lo guardo en variable apelYNom.
+									strcpy(apelYNom, asistente.apellidoYNombre);			// Copio cadena de apellido y nombre de archivo y lo guardo en variable apelYNom.
 									getch();
 									break;
 								}
 								else{
 									printf("\n\nContraseña incorrecta. Intente nuevamente...");
-									rewind(Empleados);									// Vuelve al principio del archivo.
+									rewind(Asistentes);									// Vuelve al principio del archivo.
 									getch();
 									system("cls");
 									printf("\nModulo del Asistente ( Recepcion )\n");
@@ -93,13 +93,13 @@ main(){
 						}
 						if(coincidir == false){
 							printf("Usuario no registrado. Intente nuevamente...");
-							rewind(Empleados);											// Vuelve al principio del archivo.
+							rewind(Asistentes);											// Vuelve al principio del archivo.
 							bmenu = 0;													// Bandera menu vuelve a 0.
 							getch();
 						}
 					system("cls");
 					}
-				fclose(Empleados);														// Cierro archivo
+				fclose(Asistentes);														// Cierro archivo
 				}
 			break;
 			case 2:break;
