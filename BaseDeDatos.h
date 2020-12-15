@@ -10,16 +10,46 @@ FILE *  Asistentes;
 
 
 //-------------------------------REGISTROS-----------------------------------
-struct med{
-	int dni;
-	char apellidoYNombre[60], matricula[30], password[30], telefono[25] ,usuario[30];
+
+
+struct fec{
+	int dia, mes, anio;
 };
+
+
+struct hor{
+	int desde, hasta;
+};
+
+struct sem{
+	int lun, mar, mie, jue, vie, sab;
+	struct hor lunh;
+	struct hor marh;
+	struct hor mieh;
+	struct hor jueh;
+	struct hor vieh;
+	struct hor sabh;
+};
+
+struct tur{
+	int turnLun, turnMar, turnMie, turnJue, turnVie, turnSab;
+};
+
 
 struct asist{
-	char apellidoYNombre[30], usuario[30], password[30];
+	char apellidoYNombre[60], usuario[10], contrasenia[10];
 };
 
-med veterinario;
+struct vet{
+	int dni;
+	char apellidoYNombre[60], matricula[10], contrasenia[10], telefono[25] ,usuario[10];
+	struct sem diasAtencion;
+	struct tur turnos;
+};
+
+
+
+vet veterinario;
 asist asistente;
 
 
@@ -94,7 +124,7 @@ int contadorNum(char cadena[]){  //funcion cuenta la cantidad de numeros que hay
 char ASCII[] = {160, 130, 161, 162, 163, 32, 181, 144, 214, 224, 233, 132, 137, 139, 148, 129, 142, 211, 216, 153, 154, 64, 168, 63, 173, 33, 58, 57, 92, 34, 39, 40, 41, 91, 93, 123, 125, 174, 175, 36, 156, 190, 189, 207, 169, 184, 166, 167, 248};
 
 
-void validaCarEsp(char cadena[], int &cont){ //funcion para validad caracteres especiales 
+void validaCarEsp(char cadena[], int &cont){ //Funcion para validar caracteres especiales 
 	cont = 0;
 	
 	for(int i=0;i<strlen(cadena);i++){
@@ -159,3 +189,195 @@ void letConsecutivas(char cadena[], int &cont){  //funcion letras consecutivas
 		}
 	}
 }
+
+
+
+void convertirFecha(int vFecha, int &dia, int &mes, int &anio){
+	anio = vFecha % 10000;
+	mes = ((vFecha % 1000000) - anio) / 10000;
+	dia = ((vFecha % 100000000) - mes) / 1000000;
+}
+
+void calcularSemana(){ //Funcion para calcular los dias que trabaja
+		
+	char sem;
+	float hor;
+	int b = 0;
+	
+	while(b != 1){
+		
+		printf("\nDias de semana que atiende: \n\n");
+		printf("\n\t%cLunes? (S)i - (N)o: ", 168);
+		_flushall();
+		scanf("%c", &sem);
+		if(sem == 'S' || sem == 's'){
+			veterinario.diasAtencion.lun = 1;
+			printf("\n\tDesde hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.lunh.desde);
+			printf("\tHasta hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.lunh.hasta);
+			b = 1;
+			system("cls");
+		}
+		else if(sem == 'N' || sem == 'n'){
+			veterinario.diasAtencion.lun = 0;
+			b = 1;
+			system("cls");
+		}
+		else{
+			printf("\nIngrese S o N.. Presione una tecla para volver a ingresar.");
+			getch();
+			system("cls");
+		}
+	}
+	b = 0;
+	
+	while(b != 1){
+		printf("\nDias de semana que atiende: \n\n");
+		printf("\n\t%cMartes? (S)i - (N)o: ", 168);
+		_flushall();
+		scanf("%c", &sem);
+		if(sem == 'S' || sem == 's'){
+			veterinario.diasAtencion.mar = 1;
+			printf("\n\tDesde hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.marh.desde);
+			printf("\tHasta hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.marh.hasta);
+			b = 1;
+			system("cls");
+		}
+		else if(sem == 'N' || sem == 'n'){
+			veterinario.diasAtencion.mar = 0;
+			b = 1;
+			system("cls");
+		}
+		else{
+			printf("\nIngrese S o N.. Presione una tecla para volver a ingresar.");
+			getch();
+			system("cls");
+		}
+	}
+	b = 0;
+	
+	while(b != 1){
+		printf("\nDias de semana que atiende: \n\n");
+		printf("\n\t%cMiercoles? (S)i - (N)o: ", 168);
+		_flushall();
+		scanf("%c", &sem);
+		if(sem == 'S' || sem == 's'){
+			veterinario.diasAtencion.mie = 1;
+			printf("\n\tDesde hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.mieh.desde);
+			printf("\tHasta hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.mieh.hasta);
+			b = 1;
+			system("cls");
+		}
+		else if(sem == 'N' || sem == 'n'){
+			veterinario.diasAtencion.mie = 0;
+			b = 1;
+			system("cls");
+		}
+		else{
+			printf("\nIngrese S o N.. Presione una tecla para volver a ingresar.");
+			getch();
+			system("cls");
+		}
+	}
+	b = 0;
+	
+	while(b != 1){
+		printf("\nDias de semana que atiende: \n\n");
+		printf("\n\t%cJueves? (S)i - (N)o: ", 168);
+		_flushall();
+		scanf("%c", &sem);
+		if(sem == 'S' || sem == 's'){
+			veterinario.diasAtencion.jue = 1;
+			printf("\n\tDesde hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.jueh.desde);
+			printf("\tHasta hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.jueh.hasta);
+			b = 1;
+			system("cls");
+		}
+		else if(sem == 'N' || sem == 'n'){
+			veterinario.diasAtencion.jue = 0;
+			b = 1;
+			system("cls");
+		}
+		else{
+			printf("\nIngrese S o N.. Presione una tecla para volver a ingresar.");
+			getch();
+			system("cls");
+		}
+	}
+	b = 0;
+	
+	while(b != 1){
+		printf("\nDias de semana que atiende: \n\n");
+		printf("\n\t%cViernes? (S)i - (N)o: ", 168);
+		_flushall();
+		scanf("%c", &sem);
+		if(sem == 'S' || sem == 's'){
+			veterinario.diasAtencion.vie = 1;
+			printf("\n\tDesde hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.vieh.desde);
+			printf("\tHasta hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.vieh.hasta);
+			b = 1;
+			system("cls");
+		}
+		else if(sem == 'N' || sem == 'n'){
+			veterinario.diasAtencion.vie = 0;
+			b = 1;
+			system("cls");
+		}
+		else{
+			printf("\nIngrese S o N.. Presione una tecla para volver a ingresar.");
+			getch();
+			system("cls");
+		}
+	}
+	b = 0;
+	
+	while(b != 1){
+		printf("\nDias de semana que atiende: \n\n");
+		printf("\n\t%cSabado? (S)i - (N)o: ", 168);
+		_flushall();
+		scanf("%c", &sem);
+		if(sem == 'S' || sem == 's'){
+			veterinario.diasAtencion.sab = 1;
+			printf("\n\tDesde hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.sabh.desde);
+			printf("\tHasta hs (hhmm): ");
+			_flushall();
+			scanf("%d", &veterinario.diasAtencion.sabh.hasta);
+			b = 1;
+			system("cls");
+		}
+		else if(sem == 'N' || sem == 'n'){
+			veterinario.diasAtencion.sab = 0;
+			b = 1;
+			system("cls");
+		}
+		else{
+			printf("\nIngrese S o N.. Presione una tecla para volver a ingresar.");
+			getch();
+			system("cls");
+		}
+		
+	}
+	
+}
+
