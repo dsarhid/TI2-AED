@@ -243,7 +243,7 @@ main(){
 				strcpy(veterinario.password, pass);
 			
 				
-				fwrite(&veterinario, sizeof(med), 1, Veterinarios); //Se escribre el usuario y la contraseña en el archivo
+				fwrite(&veterinario, sizeof(vet), 1, Veterinarios); //Se escribre el usuario y la contraseña en el archivo
 				
 				printf("\n\n\tVeterinario registrado con exito!. Presione una tecla para continuar...");
 				getch();
@@ -444,7 +444,7 @@ main(){
 				}
 				//Se copia las cadenas en las cadenas de los registros para tener un archivo registro
 				strcpy(asistente.usuario, usrAst);
-				strcpy(asistente.password, pass);
+				strcpy(asistente.contrasenia, pass);
 				
 				fwrite(&asistente, sizeof(asist), 1, Asistentes);
 				

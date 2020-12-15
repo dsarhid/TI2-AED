@@ -8,6 +8,7 @@
 FILE *	Veterinarios;
 FILE *  Asistentes;
 FILE *	Mascotas;
+FILE *	Listados;
 
 
 
@@ -43,15 +44,18 @@ struct asist{
 struct masc{
 	int dni, peso;
 	char apellidoYNombre[60], localidad[0], evol[380], domicilio[60];
-	//struct fec fechaAtencion;
 	struct fec fechaNacimiento;
+	struct fec fechaAtencion;
 	bool borrado;
 };
-
+struct list{
+	char nomVeterinario[30], nomMascota[30];
+};
 
 vet veterinario;
 asist asistente;
 masc mascota;
+list listado;
 
 
 // --------------------------------FUNCIONES---------------------------------

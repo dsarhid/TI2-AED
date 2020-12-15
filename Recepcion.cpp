@@ -203,44 +203,44 @@ main(){
 						else{
 							system("cls");
 							printf("\nListado de veterinarios y sus respectivos dias y horarios: \n\n");
-							while(fread(&veterinario, sizeof(med), 1, Veterinarios) != NULL){
+							while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
 								printf("Nombre Completo: %s\n", veterinario.apellidoYNombre);
 								printf("Dias: \n");
 								if(veterinario.diasAtencion.lun == 1){
 									printf("\n\tLunes: \n\t\t");
 									convertirHora(veterinario.diasAtencion.lunh.desde, veterinario.diasAtencion.lunh.hasta, totalTurnos);
 									veterinario.turnos.turnLun = totalTurnos;
-									fwrite(&veterinario, sizeof(med), 1, Veterinarios);
+									fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
 								}
 								if(veterinario.diasAtencion.mar == 1){
 									printf("\n\tMartes: \n\t\t");
 									convertirHora(veterinario.diasAtencion.marh.desde, veterinario.diasAtencion.marh.hasta, totalTurnos);
 									veterinario.turnos.turnMar = totalTurnos;
-									fwrite(&veterinario, sizeof(med), 1, Veterinarios);
+									fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
 								}
 								if(veterinario.diasAtencion.mie == 1){
 									printf("\n\tMiercoles: \n\t\t");
 									convertirHora(veterinario.diasAtencion.mieh.desde, veterinario.diasAtencion.mieh.hasta, totalTurnos);
 									veterinario.turnos.turnMie = totalTurnos;
-									fwrite(&veterinario, sizeof(med), 1, Veterinarios);
+									fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
 								}
 								if(veterinario.diasAtencion.jue == 1){
 									printf("\n\tJueves: \n\t\t");
 									convertirHora(veterinario.diasAtencion.jueh.desde, veterinario.diasAtencion.jueh.hasta, totalTurnos);
 									veterinario.turnos.turnJue = totalTurnos;
-									fwrite(&veterinario, sizeof(med), 1, Veterinarios);
+									fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
 								}
 								if(veterinario.diasAtencion.vie == 1){
 									printf("\n\tViernes: \n\t\t");
 									convertirHora(veterinario.diasAtencion.vieh.desde, veterinario.diasAtencion.vieh.hasta, totalTurnos);
 									veterinario.turnos.turnVie = totalTurnos;
-									fwrite(&veterinario, sizeof(med), 1, Veterinarios);
+									fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
 								}
 								if(veterinario.diasAtencion.sab == 1){
 									printf("\n\tSabado: \n\t\t");
 									convertirHora(veterinario.diasAtencion.sabh.desde, veterinario.diasAtencion.sabh.hasta, totalTurnos);
 									veterinario.turnos.turnSab = totalTurnos;
-									fwrite(&veterinario, sizeof(med), 1, Veterinarios);
+									fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
 								}
 							}
 							printf("Presione una tecla para continuar...");
@@ -252,7 +252,74 @@ main(){
 				fclose(Veterinarios);
 				fclose(Asistentes);
 				break;
-			case 4:break;
+			case 4:
+				Veterinarios = fopen("Veterinarios.dat", "rb");
+				Mascotas = fopen("Mascotas.dat", "rb");
+				Asistentes = fopen("Asistentes.dat", "rb");
+				Listados = fopen("Listados.dat", "rb");
+				
+				coincidir = false;
+				
+				if(Asistentes == NULL){
+					printf("\nNingun asistente registrado. Primero registre un asistente en Administracion.");
+					getch();
+					system("cls");
+					break;
+				}
+				else{
+					if(Veterinarios == NULL){
+						printf("\nNingun veterinario registrado. Primero registre un veterinario en Administracion.");
+						getch();
+						system("cls");
+						break;
+					}
+					else{
+						if(Mascotas == NULL){
+							printf("\nNingun mascota registrada. Primero registre una mascota.");
+							getch();
+							system("cls");
+							break;
+						}
+						else{
+							if(Listados == NULL){
+								printf("\nNingun listado registrado. Presione una tecla para continuar...");
+								getch();
+								system("cls");
+								break;
+							}
+							else{
+								printf("Ingrese fecha de listado (ddmmaaaa): ");
+								scanf("%i", &vFecha);
+								convertirFecha(vFecha, dia, mes, anio);
+								printf("Fecha: %i/%i/%i.\n\n", dia, mes, anio);
+								while(fread(&mascota, sizeof(masc), 1, Mascotas) != NULL){
+									if(dia == mascota.fechaAtencion.dia){
+										if(mes == mascota.fechaAtencion.mes){
+											if(anio == mascota.fechaAtencion.anio){
+												printf("Veterinario: %s", veterinario.apellidoYNombre);
+												while(fread(&listado, sizeof(list), 1, Listados) != NULL){
+													if(strcmp(veterinario.apellidoYNombre, listado.nomVeterinario) == 0){
+														printf("Mascota: %s\n", listado.nomMascota);
+													}
+												}
+												rewind(Listados);
+												coincidir = true;
+											}
+										}
+									}
+								}
+								if(coincidir == false){
+									printf("No hay registros para esta fecha.");
+								}
+							}
+						}
+					}
+			 	}
+				fclose(Veterinarios);
+				fclose(Mascotas);
+				fclose(Listados);
+				fclose(Asistentes);
+			break;
 		}
 	}
 	system("cls");
