@@ -15,9 +15,26 @@ FILE *	Mascotas;
 struct fec{
 	int dia, mes, anio;
 };
-struct med{
+struct hor{
+	int desde, hasta;
+};
+struct sem{
+	int lun, mar, mie, jue, vie, sab;
+	struct hor lunh;
+	struct hor marh;
+	struct hor mieh;
+	struct hor jueh;
+	struct hor vieh;
+	struct hor sabh;
+};
+struct tur{
+	int turnLun, turnMar, turnMie, turnJue, turnVie, turnSab;
+};
+struct vet{
 	int dni;
 	char apellidoYNombre[60], matricula[30], password[30], telefono[25] ,usuario[30];
+	struct sem diasAtencion;
+	struct tur turnos;
 };
 struct asist{
 	int cantRegistros;
@@ -32,7 +49,7 @@ struct masc{
 };
 
 
-med veterinario;
+vet veterinario;
 asist asistente;
 masc mascota;
 
@@ -175,4 +192,40 @@ void convertirFecha(int vFecha, int &dia, int &mes, int &anio){
 	anio = vFecha % 10000;
 	mes = ((vFecha % 1000000) - anio) / 10000;
 	dia = ((vFecha % 100000000) - mes) / 1000000;
+}
+
+void convertirHora(int desde, int hasta, int &totalTurnos){
+	totalTurnos = ((hasta - desde) / 20) * 0.6;
+	
+	int minutoin = desde % 100;
+	int horain = ((desde % 10000) - minutoin) / 100;
+	int minutoout = hasta % 100;
+	int horaout = ((hasta % 10000) - minutoout) / 100;
+	
+	if((minutoin >= 0 && minutoin < 10) && (horain >= 0 && horain < 10)){
+		printf("Horario: 0%i:0%i\n", horain, minutoin);
+	}
+	else if((minutoin >= 0 && minutoin < 10) && (horain > 10)){
+		printf("Horario: %i:0%i\n", horain, minutoin);
+	}
+	else if((horain >= 0 && horain < 10) && (minutoin > 10)){
+		printf("Horario: 0%i:%i\n", horain, minutoin);
+	}
+	else{
+		printf("Horario: %i:%i", horain, minutoin);
+	}	
+	if((minutoout >= 0 && minutoout < 10) && (horaout >= 0 && horaout < 10)){
+		printf("Horario: 0%i:0%i\n", horaout, minutoout);
+	}
+	else if((minutoout >= 0 && minutoout < 10) && (horaout > 10)){
+		printf("Horario: %i:0%i\n", horaout, minutoout);
+	}
+	else if((horaout >= 0 && horaout < 10) && (minutoout > 10)){
+		printf("Horario: 0%i:%i\n", horaout, minutoout);
+	}
+	else{
+		printf("Horario: %i:%i", horaout, minutoout);
+	}
+	
+	printf("Cantidad de turnos aproximados del dia: %i\n\n", totalTurnos);
 }
