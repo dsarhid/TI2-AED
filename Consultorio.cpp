@@ -25,9 +25,8 @@ void menu (int&op)
 main(){
 	system("cls");
 	int op=0, Bandera=1, Loguear=0, BanderaMenu=1;
-	char Pass[30], Mat[30]; ApellidoNombre[60];
+	char Pass[30], Mat[30], ApellidoNombre[60];
 	bool Coincidir=true;
-	int op = 0;
 	while(op != 5) 
 	{
 		menu(op);
@@ -35,7 +34,7 @@ main(){
 			case 1:
 				Veterinarios = fopen("Veterinarios.dat", "rb");
 	
-				if( == NULL){
+				if( Veterinarios == NULL){
 					printf("\nNingun veterinario registrado. Presione una tecla para continuar...");
 					getch();
 					system("cls");
@@ -57,23 +56,23 @@ main(){
 						_flushall();
 						scanf("%s", &Mat);
 						
-						while(fread(&veterinario, sizeof(vet), 1, veterinarios) != NULL){
+						while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
 							if(strcmp(Mat, veterinario.matricula) == 0){
 								Coincidir = true;
 								printf("Ingrese contrasenia: ", -92);
 								scanf("%s", &Pass);
 								if(strcmp(Pass, veterinario.password) == 0){
 									printf("\n\n\tveterinario logueado con exito. Presione una tecla para continuar...");
-									band = 0;
-									loguear = 1;
-									bandMenu = 0;
-									strcpy(apellidoNombre, veterinario.apellidoYNombre);
+									Bandera = 0;
+									Loguear = 1;
+									BanderaMenu = 0;
+									strcpy(ApellidoNombre, veterinario.apellidoYNombre);
 									getch();
 									break;
 								}
 								else{
 									printf("\n\nContraseña incorrecta. Intente nuevamente...");
-									rewind(veterinarios);
+									rewind(Veterinarios);
 									getch();
 									system("cls");
 								    printf("\n================== CONSULTORIO VETERINARIO ===================\n\n");
@@ -92,13 +91,13 @@ main(){
 						}
 						if(Coincidir == false){
 							printf("Matricula no registrada. Intente nuevamente...");
-							rewind(veterinarios);
-							bandMenu = 0;
+							rewind(Veterinarios);
+							BanderaMenu = 0;
 							getch();
 						}
 					system("cls");
 					}
-				fclose(veterinarios);
+				fclose(Veterinarios);
 				}
 			break;
 			
