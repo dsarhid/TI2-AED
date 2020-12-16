@@ -60,8 +60,15 @@ main(){
                 scanf("%s",veterinario.telefono);
                 cantidadVet++;
 				system("cls");
-	
 			
+			// Esto es un prueba de lo que le comentaba antes profe, no esta el codigo original	
+				veterinario.diasAtencion.lun=0;
+	            veterinario.diasAtencion.mar=0;
+	            veterinario.diasAtencion.mie=0;
+	            veterinario.diasAtencion.jue=0;
+	            veterinario.diasAtencion.vie=0;
+	            veterinario.diasAtencion.sab=0;
+			//===============================================================================
 				
 				while(bandera != 0){  //bandera valor verdadero b=0 contrario b=1
 					enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
@@ -137,7 +144,7 @@ main(){
 						getch();
 						system("cls");
 					}
-					//Se agrupan todos los valores booleanos verdaderos para cambiar el valor de la bandera b
+					//Se agrupan todos los valores booleanos verdaderos para cambiar el valor de la bandera 
 					if(enunciadoA == true && enunciadoB == true && enunciadoC == true && enunciadoD == true){
 						bandera = 0;
 					}
@@ -461,7 +468,7 @@ main(){
 					
 			break;
 			case 3:
-				Veterinarios = fopen("Veterinarios.dat", "r+b"); //Abre archivo veterinarios
+				Veterinarios = fopen("Veterinarios.dat", "rb"); //Abre archivo veterinarios
 
 				if(Veterinarios == NULL){ //Averigua si el archivo esta vacio o no
 					printf("\n\n\t Ningun veterinario registrado. Presione una tecla para continuar...");
@@ -481,7 +488,7 @@ main(){
                 }
                 
                 fclose(Veterinarios); //Cierra archivo veterinarios 
-
+ 
 			break;
 		
 		

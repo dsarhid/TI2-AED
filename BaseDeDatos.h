@@ -65,8 +65,8 @@ struct list{
 vet veterinario;
 asist asistente;
 masc mascota;
-list listado;
-
+list listado; 
+sem diasAtencion;
 
 // --------------------------------FUNCIONES---------------------------------
 
@@ -213,7 +213,7 @@ void calcularSemana(){ //Funcion para registrar el horario de los dias que traba
 		
 	char sem;
 	float hor;
-	int b = 0; //utilizacion de la bandera b para salir de los while
+	int b = 0; //utilizacion de la bandera b para salir de los whiles
 	
 	while(b != 1){
 		
