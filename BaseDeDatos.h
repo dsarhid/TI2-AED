@@ -209,7 +209,7 @@ void convertirFecha(int vFecha, int &dia, int &mes, int &anio){
 	dia = ((vFecha % 100000000) - mes) / 1000000;
 }
 
-void calcularSemana(){ //Funcion para calcular los dias que trabaja
+void calcularSemana(){ //Funcion para registrar el horario de los dias que trabaja el vet
 		
 	char sem;
 	float hor;

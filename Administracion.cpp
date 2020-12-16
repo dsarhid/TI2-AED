@@ -31,7 +31,7 @@ main(){
 	system("cls");
 	int opcion = 0, bandera = 1, log = 0, contMayus = 0, contMinus = 0, contNum = 0, contEsp = 0, contLet = 0,cantidadVet=0;
 	char usrAst[10], contra[10], usrVet[10], cadAux[10], nomb[10], apell[10];
-	bool cumpleA = false, cumpleB = false, cumpleC = false, cumpleD = false, cumpleE = false;
+	bool enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
 	
 	while(opcion != 6){
 		menu(opcion); // Llamada a la funcion menu
@@ -64,7 +64,7 @@ main(){
 			
 				
 				while(bandera != 0){  //bandera valor verdadero b=0 contrario b=1
-					cumpleA = false, cumpleB = false, cumpleC = false, cumpleD = false, cumpleE = false;
+					enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
 					contMayus = 0, contMinus = 0, contNum = 0;
 					
 					printf("\nIngrese Usuario: \n");
@@ -84,7 +84,7 @@ main(){
 						printf("Usuario no cumple con la condicion \"D.\"\n");
 					}
 					else{
-						cumpleD = true;
+						enunciadoD = true;
 					}	
 					contNum = contadorNum(usrVet); // Llamada contador de caracteres numeros
 					//Se utiliza el contador de caracteres numeros para saber si cumple con la condicion C  
@@ -92,7 +92,7 @@ main(){
 						printf("Usuario no cumple con la condicion \"C.\"\n");
 					}
 					else{
-						cumpleC = true;
+						enunciadoC = true;
 					}
 					
 					strcpy(cadAux, usrVet); // Se utiliza una cadena auxiliar para copiar el usuario ingresado
@@ -107,7 +107,7 @@ main(){
 						printf("Usuario no cumple con la condicion \"B.\"\n");
 					}
 					else{
-						cumpleB = true; // Si cumple el valor es verdadero
+						enunciadoB = true; // Si cumple el valor es verdadero
 					}
 					
 					if(usrVet[0] == cadAux[0]){ //Se aprovecha que la cadena auxiliar esta en mayusculas para saber si la primera letra esta en minusculas
@@ -122,7 +122,7 @@ main(){
 						}
 						else{
 							if(usrVet[0] == cadAux[0]){ // Se averigua si el primer caracter es minuscula
-								cumpleA = true;
+								enunciadoA = true;
 							}
 							else{
 								printf("Usuario no cumple con la condicion \"A.\"\n");
@@ -131,14 +131,14 @@ main(){
 					}
 					
 					//Se agrupan todos los valores booleanos falsos para volver a pedir que ingrese un Usuario correcto
-					if(cumpleA == false || cumpleB == false || cumpleC == false || cumpleD == false){
+					if(enunciadoA == false || enunciadoB == false || enunciadoC == false || enunciadoD == false){
 						
 						printf("\nPresione una tecla para volver a ingresar...");
 						getch();
 						system("cls");
 					}
 					//Se agrupan todos los valores booleanos verdaderos para cambiar el valor de la bandera b
-					if(cumpleA == true && cumpleB == true && cumpleC == true && cumpleD == true){
+					if(enunciadoA == true && enunciadoB == true && enunciadoC == true && enunciadoD == true){
 						bandera = 0;
 					}
 				}
@@ -146,7 +146,7 @@ main(){
 				bandera = 1;
 				
 				while(bandera != 0){
-					cumpleA = false, cumpleB = false, cumpleC = false, cumpleD = false, cumpleE = false;
+					enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
 					contMayus = 0, contMinus = 0, contNum = 0;
 					system("cls");
 					
@@ -192,7 +192,7 @@ main(){
 						printf("Contrase%ca no cumple con la condicion \"A.\"\n", -92);
 					}
 					else{
-						cumpleA = true;
+						enunciadoA = true;
 					}
 					
 					validaCarEsp(contra, contEsp); // Llamada a la funcion para validar caracteres especiales, pasando la cadena y el contador de caracteres
@@ -201,14 +201,14 @@ main(){
 						printf("Contrase%ca no cumple con la condicion \"B.\"\n", -92);
 					}
 					else{
-						cumpleB = true;
+						enunciadoB = true;
 					}
 					
 					if(strlen(contra) < 6 || strlen(contra) > 32){  //Se filtra la condicion de longitud del apartado C 
 						printf("Contrase%ca no cumple con la condicion \"C.\"\n", -92);
 					}
 					else{
-						cumpleC = true;
+						enunciadoC = true;
 					}
 					
 					numConsecutivos(contra, contNum); //Llamada a la funcion para verificar la cantidad de numeros consecutivos
@@ -217,7 +217,7 @@ main(){
 						printf("Contrase%ca no cumple con la condicion \"D.\"\n", -92);
 					}
 					else{
-						cumpleD = true;
+						enunciadoD = true;
 					}
 					
 					letConsecutivas(contra, contLet); //Llamada a la funcion para verificar las letras consecutivas 
@@ -226,17 +226,17 @@ main(){
 						printf("Contrase%ca no cumple con la condicion \"E.\"\n", -92);
 					}
 					else{
-						cumpleE = true;
+						enunciadoE = true;
 					}
 					// Se agrupan todos los valores booleanos falsos para pedir que ingrese una nueva contraseña
-					if(cumpleA == false || cumpleB == false || cumpleC == false || cumpleD == false || cumpleE == false){
+					if(enunciadoA == false || enunciadoB == false || enunciadoC == false || enunciadoD == false || enunciadoE == false){
 						printf("\nPresione una tecla para volver a ingresar...");
 						getch();
 						system("cls");
 					}
 					//De la misma manera se agrupan los valores booleanos verdaderos para cambiar el valor de la bandera
 					// y aceptar la contraseña ingresada
-					if(cumpleA == true && cumpleB == true && cumpleC == true && cumpleD == true && cumpleE == true){
+					if(enunciadoA == true && enunciadoB == true && enunciadoC == true && enunciadoD == true && enunciadoE == true){
 						bandera = 0;
 					}
 				}
@@ -275,7 +275,7 @@ main(){
 				bandera = 1; //Se utiliza la bandera de la misma manera que en el case 1
 				
 				while(bandera != 0){
-					cumpleA = false, cumpleB = false, cumpleC = false, cumpleD = false, cumpleE = false;
+					enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
 					contMayus = 0, contMinus = 0, contNum = 0;
 					printf("\nIngrese Usuario: \n");
 					printf("\n\tA. Comenzar con una letra minuscula.");
@@ -292,7 +292,7 @@ main(){
 						printf("Usuario no cumple con la condicion \"D.\"\n");
 					}
 					else{
-						cumpleD = true;
+						enunciadoD = true;
 					}
 					
 					contNum = contadorNum(usrAst); //llamada a la funcion para contar numeros en la cadena
@@ -300,7 +300,7 @@ main(){
 						printf("Usuario no cumple con la condicion \"C.\"\n");
 					}
 					else{
-						cumpleC = true;
+						enunciadoC = true;
 					}
 					
 					strcpy(cadAux, usrAst); // Copia cadena usrAst a cadAux 
@@ -314,7 +314,7 @@ main(){
 						printf("Usuario no cumple con la condicion \"B.\"\n");
 					}
 					else{
-						cumpleB = true;
+						enunciadoB = true;
 					}
 					
 					if(usrAst[0] == cadAux[0]){ //Se aprovecha la cadAux se encuntra en mayusculas para saber si el primer caracter esta en minuscula
@@ -328,7 +328,7 @@ main(){
 						}
 						else{
 							if(usrAst[0] == cadAux[0]){
-								cumpleA = true;
+								enunciadoA = true;
 							}
 							else{
 								printf("Usuario no cumple con la condicion \"A.\"\n");
@@ -337,14 +337,14 @@ main(){
 					}
 					
 					//Se juntan todos los valores booleanos falsos para pedir que ingrese un nuevo usuario
-					if(cumpleA == false || cumpleB == false || cumpleC == false || cumpleD == false){
+					if(enunciadoA == false || enunciadoB == false || enunciadoC == false || enunciadoD == false){
 						printf("\nPresione una tecla para volver a ingresar...");
 						getch();
 						system("cls");
 					}
 					
 					//Se juntan todos los valores booleanos verdaderos para cambiar el valor de bandera y solicitar la contraseña del usuario
-					if(cumpleA == true && cumpleB == true && cumpleC == true && cumpleD == true){
+					if(enunciadoA == true && enunciadoB == true && enunciadoC == true && enunciadoD == true){
 						bandera = 0;
 					}
 				}
@@ -353,7 +353,7 @@ main(){
 				bandera = 1; //Al cambiar el valor de la bandera se acepta el usuario y solicita contraseña del mismo
 				
 				while(bandera != 0){
-					cumpleA = false, cumpleB = false, cumpleC = false, cumpleD = false, cumpleE = false;
+					enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
 					contMayus = 0, contMinus = 0, contNum = 0;
 					system("cls");
 					printf("\nIngrese contrase%ca: \n", -92);
@@ -397,7 +397,7 @@ main(){
 						printf("Contrase%ca no cumple con la condicion \"A.\"\n", -92);
 					}
 					else{
-						cumpleA = true;
+						enunciadoA = true;
 					}
 					
 					validaCarEsp(contra, contEsp); //Llamada a la funcion que valida caracteres especiales
@@ -406,14 +406,14 @@ main(){
 						printf("Contrase%ca no cumple con la condicion \"B.\"\n", -92);
 					}
 					else{
-						cumpleB = true;
+						enunciadoB = true;
 					}
 					
 					if(strlen(contra) < 6 || strlen(contra) > 32){ //Condicion de longitud de la contraseña
 						printf("Contrase%ca no cumple con la condicion \"C.\"\n", -92);
 					}
 					else{
-						cumpleC = true;
+						enunciadoC = true;
 					}
 					
 					numConsecutivos(contra, contNum); //Llamada a la funcion numeros consecutivos 
@@ -422,7 +422,7 @@ main(){
 						printf("Contrase%ca no cumple con la condicion \"D.\"\n", -92);
 					}
 					else{
-						cumpleD = true;
+						enunciadoD = true;
 					}
 					
 					letConsecutivas(contra, contLet); //Llamada a la funcion letras consecutivas
@@ -431,17 +431,17 @@ main(){
 						printf("Contrase%ca no cumple con la condicion \"E.\"\n", -92);
 					}
 					else{
-						cumpleE = true;
+						enunciadoE = true;
 					}
 					
 					//Se juntan todos los valores booleanos falsos para volver a solicitar una contraseña
-					if(cumpleA == false || cumpleB == false || cumpleC == false || cumpleD == false || cumpleE == false){
+					if(enunciadoA == false || enunciadoB == false || enunciadoC == false || enunciadoD == false || enunciadoE == false){
 						printf("\nPresione una tecla para volver a ingresar...");
 						getch();
 						system("cls");
 					}
 					//Se juntan todos los valores booleanos verdaderos para aceptar la contraseña, cambiando el valor de la bandera
-					if(cumpleA == true && cumpleB == true && cumpleC == true && cumpleD == true && cumpleE == true){
+					if(enunciadoA == true && enunciadoB == true && enunciadoC == true && enunciadoD == true && enunciadoE == true){
 						bandera = 0;
 					}
 				}
@@ -461,10 +461,10 @@ main(){
 					
 			break;
 			case 3:
-				Veterinarios = fopen("Veterinarios.dat", "r+b");
+				Veterinarios = fopen("Veterinarios.dat", "r+b"); //Abre archivo veterinarios
 
 				if(Veterinarios == NULL){
-					printf("\n\n\tNingun veterinario registrado. Presione una tecla para continuar...");
+					printf("\n\n\t Ningun veterinario registrado. Presione una tecla para continuar...");
 					getch();
 					system("cls");
 					break;
@@ -480,7 +480,7 @@ main(){
 					}
                 }
                 
-                fclose(Veterinarios);
+                fclose(Veterinarios); //Cierra archivo veterinarios 
 
 			break;
 		
