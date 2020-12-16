@@ -25,6 +25,7 @@ void menu (int&op)
 main(){
 	system("cls");
 	int op=0, Bandera=1, Loguear=0, BanderaMenu=1;
+	int vFecha,Dia,Mes,Anio;
 	char Pass[30], Mat[30], ApellidoNombre[60];
 	char Nombre[30],Apellido[30];
 	bool Coincidir=true;
@@ -150,50 +151,47 @@ main(){
 									//Sleep(300);
 									printf("\t\tApellido y Nombre: %s\n", mascota.apellidoYNombre);
 									printf("\t\tNumero de documento (DNI): %i\n", mascota.dni);
-									printf("\t\tFecha de Nacimiento: %i/%i/%i\n", paciente.fechaNacimiento.dia, paciente.fechaNacimiento.mes, paciente.fechaNacimiento.anio);
+									printf("\t\tFecha de Nacimiento: %i/%i/%i\n", mascota.fechaNacimiento.dia, mascota.fechaNacimiento.mes, mascota.fechaNacimiento.anio);
 									printf("\t\tLocalidad: %s\n", mascota.localidad);
 									//printf("\t\tEdad: %i a%os\n", mascota.edad, -92);
 									printf("\t\tPeso: %i kg.\n", mascota.peso);
+									
+									
 									printf("\t\tIngrese evolucion del paciente: ");
 									scanf("%s", &mascota.evol);
 									printf("\t\tFecha de atencion con formato (ddmmaaaa): ");
 									_flushall();
 									scanf("%i", &vFecha);
-									convertirFecha(vFecha, dia, mes, anio);
-									paciente.fechaAtencion.dia = dia;
-									paciente.fechaAtencion.mes = mes;
-									paciente.fechaAtencion.anio = anio;
-									paciente.borrado = true;
-									fwrite(&paciente, sizeof(pac), 1, Pacientes);
+									convertirFecha(vFecha, Dia, Mes, Anio);
+									mascota.fechaAtencion.dia = Dia;
+									mascota.fechaAtencion.mes = Mes;
+									mascota.fechaAtencion.anio = Anio;
+									mascota.borrado = true;
+									fwrite(&mascota, sizeof(vet), 1, Mascotas);
 									
-									strcpy(paciente.sawBy, ApellidoNombre);
-									strcpy(listado.nomMedico, ApellidoNombre);
-									strcpy(listado.nomPaciente, paciente.apellidoYNombre);
+									
+									strcpy(listado.nomVeterinario, ApellidoNombre);
+									strcpy(listado.nomMascota, mascota.apellidoYNombre);
 									fwrite(&listado, sizeof(list), 1, Listados);
 									
-									rewind(Pacientes);
+									rewind(Mascotas);
 									
-									notFound = false;
+									Coincidir = false;
 									Bandera = 0;
 									
 									printf("\n\n\t\t\tTurno finalizado... Presione una tecla para continuar");
 									getch();
 									system("cls");
 									
-									while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
-										if(strcmp(paciente.sawBy, veterinario.apellidoYNombre) == 0){
-											veterinario.liquidacion += paciente.obraSocial.monto;
-											fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
-										}
-									}
+									
 									break;
 								}
 								else{
-									notFound = true;
+									Coincidir = true;
 								}
 							}
-							if(notFound == true){
-								rewind(Pacientes);
+							if(Coincidir == true){
+								rewind(Mascotas);
 								printf("\nNo se encontro paciente solicitado. Busque otro paciente...");
 								getch();
 								system("cls");
@@ -206,7 +204,7 @@ main(){
 							}
 						}
 					}
-					fclose(Pacientes);
+					fclose(Mascotas);
 					fclose(Veterinarios);
 				}
 			break;
