@@ -29,8 +29,7 @@ main(){
 	char Pass[30], Mat[30], ApellidoNombre[60];
 	char Nombre[30],Apellido[30];
 	bool Coincidir=true;
-	while(op != 5) 
-	{
+	while(op != 5){
 		menu(op);
 		switch (op){
 			case 1:
@@ -50,9 +49,7 @@ main(){
 							printf("2.- Visualizar Lista de Espera de Turnos (informe)\n");
 							printf("3.- Registrar Evolucion de la Mascota \n");
 							printf("4.- Cerrar la aplicacion \n\n");
-							printf("========================= CONSULTORIO VETERINARIO ========================\n\n");
 							printf("Ingrese una opcion: ");
-							
 						}
 						printf("\nIngrese Matricula: ");
 						_flushall();
@@ -63,7 +60,7 @@ main(){
 								Coincidir = true;
 								printf("Ingrese contrasenia: ", -92);
 								scanf("%s", &Pass);
-								if(strcmp(Pass, veterinario.password) == 0){
+								if(strcmp(Pass, veterinario.contrasenia) == 0){
 									printf("\n\n\tveterinario logueado con exito. Presione una tecla para continuar...");
 									Bandera = 0;
 									Loguear = 1;
@@ -82,7 +79,6 @@ main(){
 									printf("2.- Visualizar Lista de Espera de Turnos (informe)\n");
 									printf("3.- Registrar Evolucion de la Mascota \n");
 									printf("4.- Cerrar la aplicacion \n\n");
-									printf("========================= CONSULTORIO VETERINARIO ========================\n\n");
 									printf("Ingrese una opcion: ");
 									printf("\nIngrese Matricula: %s\n", Mat);
 								}
@@ -106,7 +102,7 @@ main(){
 				Bandera=1;
 				
 				if(Loguear == 0){
-					printf("\nveterinario no logueado. No se puede realizar ninguna operacion sin loguearse.");
+					printf("\nVeterinario no logueado. No se puede realizar ninguna operacion sin loguearse.");
 					getch();
 					system("cls");
 					break;
@@ -190,29 +186,72 @@ main(){
 									Coincidir = true;
 								}
 							}
-							if(Coincidir == true){
-								rewind(Mascotas);
-								printf("\nNo se encontro paciente solicitado. Busque otro paciente...");
-								getch();
-								system("cls");
-								printf("\n---------------------- CONSULTORIO ----------------------\n\n");
-								printf("1.- Iniciar Sesion.\n");
-								printf("2.- Llamar paciente.\n");
-								printf("3.- Salir del Programa.\n\n");
-								printf("---------------------- CONSULTORIO ----------------------\n\n");
-								printf("Ingrese opcion: 2\n");
-							}
 						}
 					}
 					fclose(Mascotas);
 					fclose(Veterinarios);
 				}
 			break;
-			
+			case 3:
+				Bandera=1;
+				
+				if(Loguear == 0){
+					printf("\nVeterinario no logueado. No se puede realizar ninguna operacion sin loguearse.");
+					getch();
+					system("cls");
+					break;
+				}
+				else{
+					Mascotas = fopen("Mascotas.dat", "r+b");
+					Listados = fopen("Listados.dat", "a+b");
+					char apelNom[30];
+					
+					if(Mascotas == NULL){
+						printf("\nNo hay mascotas registrados. Presione una tecla para continuar...");
+						getch();
+						system("cls");
+						break;
+					}
+					else{
+						while(Bandera != 0){
+							printf("\t\tIngrese evolucion del paciente: ");
+							scanf("%s", &mascota.evol);
+							printf("\t\tFecha de atencion con formato (ddmmaaaa): ");
+							_flushall();
+							scanf("%i", &vFecha);
+							convertirFecha(vFecha, Dia, Mes, Anio);
+							mascota.fechaAtencion.dia = Dia;
+							mascota.fechaAtencion.mes = Mes;
+							mascota.fechaAtencion.anio = Anio;
+							mascota.borrado = true;
+							fwrite(&mascota, sizeof(vet), 1, Mascotas);
+									
+									
+							strcpy(listado.nomVeterinario, ApellidoNombre);
+							strcpy(listado.nomMascota, mascota.apellidoYNombre);
+							fwrite(&listado, sizeof(list), 1, Listados);
+									
+							rewind(Mascotas);
+									
+							Coincidir = false;
+							Bandera = 0;
+								
+							printf("\n\n\t\t\tTurno finalizado... Presione una tecla para continuar");
+							getch();
+							system("cls");
+
+							break;
+						}
+					}
+				}
 		}
+		fclose(Mascotas);
+		fclose(Listados);
 	}
+	
 	system("cls");
 	printf("\n\n\n\t\tFin de la aplicacion. Presione una tecla para continuar...\n\n\n");
 	getch();
+
 }
 
