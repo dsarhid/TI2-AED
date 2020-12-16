@@ -33,29 +33,30 @@ struct sem{
 };
 
 struct tur{
-	int turnLun, turnMar, turnMie, turnJue, turnVie, turnSab;
+	//int turnLun, turnMar, turnMie, turnJue, turnVie, turnSab;
+	int dni, matricula;
+	struct fec fechaAtencion;
+	char evol[380];
 };
 
-
-
-
 struct vet{
-	int dni;
-	char apellidoYNombre[60], matricula[10], contrasenia[10], telefono[25] ,usuario[10];
+	int dni, matricula;
+	char apellidoYNombre[60], contrasenia[10], telefono[25] ,usuario[10];
 	struct sem diasAtencion;
 	struct tur turnos;
 };
-
 
 struct asist{
 	int cantRegistros;
 	char apellidoYNombre[30], usuario[10], contrasenia[10];
 };
 struct masc{
-	int dni, peso;
-	char apellidoYNombre[60], localidad[0], evol[380], domicilio[60];
+	int dni;
+	float peso;
+	char apellidoYNombre[60], localidad[60], domicilio[60],telefono[25];
 	struct fec fechaNacimiento;
 	struct fec fechaAtencion;
+	struct tur turnos;
 	bool borrado;
 };
 struct list{
