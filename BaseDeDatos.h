@@ -33,30 +33,29 @@ struct sem{
 };
 
 struct tur{
-	//int turnLun, turnMar, turnMie, turnJue, turnVie, turnSab;
-	int dni, matricula;
-	struct fec fechaAtencion;
-	char evol[380];
+	int turnLun, turnMar, turnMie, turnJue, turnVie, turnSab;
 };
 
+
+
+
 struct vet{
-	int dni, matricula;
-	char apellidoYNombre[60], contrasenia[10], telefono[25] ,usuario[10];
+	int dni;
+	char apellidoYNombre[60], matricula[10], contrasenia[10], telefono[25] ,usuario[10];
 	struct sem diasAtencion;
 	struct tur turnos;
 };
+
 
 struct asist{
 	int cantRegistros;
 	char apellidoYNombre[30], usuario[10], contrasenia[10];
 };
 struct masc{
-	int dni;
-	float peso;
-	char apellidoYNombre[60], localidad[60], domicilio[60],telefono[25];
+	int dni, peso;
+	char apellidoYNombre[60], localidad[0], evol[380], domicilio[60];
 	struct fec fechaNacimiento;
 	struct fec fechaAtencion;
-	struct tur turnos;
 	bool borrado;
 };
 struct list{
@@ -151,7 +150,7 @@ void validaCarEsp(char cadena[], int &cont){ //Funcion para validar caracteres e
 }
 
 
-void numConsecutivos(char cadena[], int &cont){ //Funcion que cuneta la cantidad de numeros consecutivos
+void numConsecutivos(char cadena[], int &cont){ //Funcion que cuenta la cantidad de numeros consecutivos
 	cont = 0;
 	
 	for(int i=0;i<strlen(cadena);i++){
@@ -191,7 +190,7 @@ void numConsecutivos(char cadena[], int &cont){ //Funcion que cuneta la cantidad
 	}
 }
 
-void letConsecutivas(char cadena[], int &cont){  //funcion letras consecutivas
+void letConsecutivas(char cadena[], int &cont){  //Funcion letras consecutivas
 	cont = 0;
 	int esp = 0;
 	

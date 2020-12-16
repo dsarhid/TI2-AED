@@ -490,6 +490,10 @@ main(){
                 fclose(Veterinarios); //Cierra archivo veterinarios 
  
 			break;
+			
+			case 4:
+				
+				break;
 		
 		
         }
