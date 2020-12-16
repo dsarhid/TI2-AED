@@ -25,10 +25,11 @@ void menu (int&op)
 main(){
 	system("cls");
 	int op=0, Bandera=1, Loguear=0, BanderaMenu=1;
+	int vFecha,Dia,Mes,Anio;
 	char Pass[30], Mat[30], ApellidoNombre[60];
+	char Nombre[30],Apellido[30];
 	bool Coincidir=true;
-	while(op != 5) 
-	{
+	while(op != 5){
 		menu(op);
 		switch (op){
 			case 1:
@@ -48,9 +49,7 @@ main(){
 							printf("2.- Visualizar Lista de Espera de Turnos (informe)\n");
 							printf("3.- Registrar Evolucion de la Mascota \n");
 							printf("4.- Cerrar la aplicacion \n\n");
-							printf("========================= CONSULTORIO VETERINARIO ========================\n\n");
 							printf("Ingrese una opcion: ");
-							
 						}
 						printf("\nIngrese Matricula: ");
 						_flushall();
@@ -61,7 +60,7 @@ main(){
 								Coincidir = true;
 								printf("Ingrese contrasenia: ", -92);
 								scanf("%s", &Pass);
-								if(strcmp(Pass, veterinario.password) == 0){
+								if(strcmp(Pass, veterinario.contrasenia) == 0){
 									printf("\n\n\tveterinario logueado con exito. Presione una tecla para continuar...");
 									Bandera = 0;
 									Loguear = 1;
@@ -80,7 +79,6 @@ main(){
 									printf("2.- Visualizar Lista de Espera de Turnos (informe)\n");
 									printf("3.- Registrar Evolucion de la Mascota \n");
 									printf("4.- Cerrar la aplicacion \n\n");
-									printf("========================= CONSULTORIO VETERINARIO ========================\n\n");
 									printf("Ingrese una opcion: ");
 									printf("\nIngrese Matricula: %s\n", Mat);
 								}
@@ -100,11 +98,160 @@ main(){
 				fclose(Veterinarios);
 				}
 			break;
-			
+			case 2:
+				Bandera=1;
+				
+				if(Loguear == 0){
+					printf("\nVeterinario no logueado. No se puede realizar ninguna operacion sin loguearse.");
+					getch();
+					system("cls");
+					break;
+				}
+				else{
+					Veterinarios = fopen("Veterinarios.dat", "r+b");
+					Mascotas = fopen("Mascotas.dat", "r+b");
+					Listados = fopen("Listados.dat", "a+b");
+					char apelNom[30];
+					
+					if(Mascotas == NULL){
+						printf("\nNo hay mascotas registrados. Presione una tecla para continuar...");
+						getch();
+						system("cls");
+						break;
+					}
+					else{
+						while(Bandera != 0){
+							printf("\nIngrese el nombre y apellido de la mascota: \n\n");
+							printf("Nombre: ");
+							_flushall();
+							scanf("%s", &Nombre);
+							printf("Apellido: ");
+							_flushall();
+							scanf("%s", &Apellido);
+							strcat(Nombre, " ");
+							strcat(Nombre, Apellido);
+							while(fread(&mascota, sizeof(masc), 1, Mascotas) != NULL){
+								if(strcmp(Nombre, mascota.apellidoYNombre) == 0){
+									system("cls");
+									printf("\n\n\tMascota encontrada..");
+									//Sleep(700);
+									//printf("\n\n\tCargando datos");
+									//Sleep(700);
+									//printf(".");
+									//Sleep(700);
+									//printf(".");
+									//Sleep(700);
+									//printf(".");
+									//Sleep(700);
+									//printf(".\n\n\n");
+									//Sleep(300);
+									printf("\t\tApellido y Nombre: %s\n", mascota.apellidoYNombre);
+									printf("\t\tNumero de documento (DNI): %i\n", mascota.dni);
+									printf("\t\tFecha de Nacimiento: %i/%i/%i\n", mascota.fechaNacimiento.dia, mascota.fechaNacimiento.mes, mascota.fechaNacimiento.anio);
+									printf("\t\tLocalidad: %s\n", mascota.localidad);
+									//printf("\t\tEdad: %i a%os\n", mascota.edad, -92);
+									printf("\t\tPeso: %i kg.\n", mascota.peso);
+									
+									
+									printf("\t\tIngrese evolucion del paciente: ");
+									scanf("%s", &mascota.evol);
+									printf("\t\tFecha de atencion con formato (ddmmaaaa): ");
+									_flushall();
+									scanf("%i", &vFecha);
+									convertirFecha(vFecha, Dia, Mes, Anio);
+									mascota.fechaAtencion.dia = Dia;
+									mascota.fechaAtencion.mes = Mes;
+									mascota.fechaAtencion.anio = Anio;
+									mascota.borrado = true;
+									fwrite(&mascota, sizeof(vet), 1, Mascotas);
+									
+									
+									strcpy(listado.nomVeterinario, ApellidoNombre);
+									strcpy(listado.nomMascota, mascota.apellidoYNombre);
+									fwrite(&listado, sizeof(list), 1, Listados);
+									
+									rewind(Mascotas);
+									
+									Coincidir = false;
+									Bandera = 0;
+									
+									printf("\n\n\t\t\tTurno finalizado... Presione una tecla para continuar");
+									getch();
+									system("cls");
+									
+									
+									break;
+								}
+								else{
+									Coincidir = true;
+								}
+							}
+						}
+					}
+					fclose(Mascotas);
+					fclose(Veterinarios);
+				}
+			break;
+			case 3:
+				Bandera=1;
+				
+				if(Loguear == 0){
+					printf("\nVeterinario no logueado. No se puede realizar ninguna operacion sin loguearse.");
+					getch();
+					system("cls");
+					break;
+				}
+				else{
+					Mascotas = fopen("Mascotas.dat", "r+b");
+					Listados = fopen("Listados.dat", "a+b");
+					char apelNom[30];
+					
+					if(Mascotas == NULL){
+						printf("\nNo hay mascotas registrados. Presione una tecla para continuar...");
+						getch();
+						system("cls");
+						break;
+					}
+					else{
+						while(Bandera != 0){
+							printf("\t\tIngrese evolucion del paciente: ");
+							scanf("%s", &mascota.evol);
+							printf("\t\tFecha de atencion con formato (ddmmaaaa): ");
+							_flushall();
+							scanf("%i", &vFecha);
+							convertirFecha(vFecha, Dia, Mes, Anio);
+							mascota.fechaAtencion.dia = Dia;
+							mascota.fechaAtencion.mes = Mes;
+							mascota.fechaAtencion.anio = Anio;
+							mascota.borrado = true;
+							fwrite(&mascota, sizeof(vet), 1, Mascotas);
+									
+									
+							strcpy(listado.nomVeterinario, ApellidoNombre);
+							strcpy(listado.nomMascota, mascota.apellidoYNombre);
+							fwrite(&listado, sizeof(list), 1, Listados);
+									
+							rewind(Mascotas);
+									
+							Coincidir = false;
+							Bandera = 0;
+								
+							printf("\n\n\t\t\tTurno finalizado... Presione una tecla para continuar");
+							getch();
+							system("cls");
+
+							break;
+						}
+					}
+				}
 		}
+		fclose(Mascotas);
+		fclose(Listados);
 	}
+	
 	system("cls");
 	printf("\n\n\n\t\tFin de la aplicacion. Presione una tecla para continuar...\n\n\n");
 	getch();
+
 }
 

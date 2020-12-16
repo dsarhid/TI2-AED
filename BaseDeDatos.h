@@ -424,7 +424,5 @@ void convertirHora(int desde, int hasta, int &totalTurnos){
 	else{
 		printf("Horario: %i:%i", horaout, minutoout);
 	}
-	
 	printf("Cantidad de turnos aproximados del dia: %i\n\n", totalTurnos);
 }
-
