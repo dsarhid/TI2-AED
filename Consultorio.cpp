@@ -25,8 +25,8 @@ void menu (int&op)
 main(){
 	system("cls");
 	int op=0, Bandera=1, Loguear=0, BanderaMenu=1;
-	int vFecha,Dia,Mes,Anio;
-	char Pass[30], Mat[30], ApellidoNombre[60];
+	int vFecha,Dia,Mes,Anio,Mat;
+	char Pass[30], ApellidoNombre[60];
 	char Nombre[30],Apellido[30];
 	bool Coincidir=true;
 	while(op != 5){
@@ -52,11 +52,12 @@ main(){
 							printf("Ingrese una opcion: ");
 						}
 						printf("\nIngrese Matricula: ");
-						_flushall();
-						scanf("%s", &Mat);
+						scanf("%d", &Mat);
+						
+						int matAux = veterinario.matricula;
 						
 						while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
-							if(strcmp(Mat, veterinario.matricula) == 0){
+							if(Mat == matAux){
 								Coincidir = true;
 								printf("Ingrese contrasenia: ", -92);
 								scanf("%s", &Pass);
@@ -154,7 +155,7 @@ main(){
 									
 									
 									printf("\t\tIngrese evolucion del paciente: ");
-									scanf("%s", &mascota.evol);
+									scanf("%s", &mascota.turnos.evol);
 									printf("\t\tFecha de atencion con formato (ddmmaaaa): ");
 									_flushall();
 									scanf("%i", &vFecha);
@@ -215,7 +216,7 @@ main(){
 					else{
 						while(Bandera != 0){
 							printf("\t\tIngrese evolucion del paciente: ");
-							scanf("%s", &mascota.evol);
+							scanf("%s", &mascota.turnos.evol);
 							printf("\t\tFecha de atencion con formato (ddmmaaaa): ");
 							_flushall();
 							scanf("%i", &vFecha);
