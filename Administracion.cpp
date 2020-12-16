@@ -463,7 +463,7 @@ main(){
 			case 3:
 				Veterinarios = fopen("Veterinarios.dat", "r+b"); //Abre archivo veterinarios
 
-				if(Veterinarios == NULL){
+				if(Veterinarios == NULL){ //Averigua si el archivo esta vacio o no
 					printf("\n\n\t Ningun veterinario registrado. Presione una tecla para continuar...");
 					getch();
 					system("cls");
@@ -471,11 +471,11 @@ main(){
 				}
 				else{
 					
-					fread(&veterinario, sizeof(vet), 1, Veterinarios);
+					fread(&veterinario, sizeof(vet), 1, Veterinarios); // Se lee el archivo antes de comenzar
 					
 					while( !feof(Veterinarios)){
 						printf("\n\tVeterinario: %s\n", veterinario.apellidoYNombre);
-						calcularSemana();
+						calcularSemana(); //Se registra el horario por dia en el cual trabaja el veterinario
 						fread(&veterinario, sizeof(vet), 1, Veterinarios);
 					}
                 }

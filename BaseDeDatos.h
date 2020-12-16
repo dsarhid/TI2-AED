@@ -213,15 +213,15 @@ void calcularSemana(){ //Funcion para registrar el horario de los dias que traba
 		
 	char sem;
 	float hor;
-	int b = 0;
+	int b = 0; //utilizacion de la bandera b para salir de los while
 	
 	while(b != 1){
 		
 		printf("\nDias de semana que atiende: \n\n");
-		printf("\n\t%cLunes? (S)i - (N)o: ", 168);
+		printf("\n\t%cLunes? (S)i - (N)o: ", 168); // codigo ASCII para que aparezca el "¿" por pantalla
 		_flushall();
 		scanf("%c", &sem);
-		if(sem == 'S' || sem == 's'){
+		if(sem == 'S' || sem == 's'){  // Se utiliza ambas letras para ingresar
 			veterinario.diasAtencion.lun = 1;
 			printf("\n\tDesde hs (hhmm): ");
 			_flushall();
@@ -237,7 +237,7 @@ void calcularSemana(){ //Funcion para registrar el horario de los dias que traba
 			b = 1;
 			system("cls");
 		}
-		else{
+		else{   // este else funciona por si el usuario aprieta una palabra que no es S o N y vuelve a preguntar
 			printf("\nIngrese S o N.. Presione una tecla para volver a ingresar.");
 			getch();
 			system("cls");
@@ -424,5 +424,7 @@ void convertirHora(int desde, int hasta, int &totalTurnos){
 	else{
 		printf("Horario: %i:%i", horaout, minutoout);
 	}
+	
 	printf("Cantidad de turnos aproximados del dia: %i\n\n", totalTurnos);
 }
+
