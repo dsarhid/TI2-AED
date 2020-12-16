@@ -4,8 +4,11 @@
 #include <conio.h>
 
 //--------------------------------ARCHIVOS-----------------------------------
+
 FILE *	Veterinarios;
 FILE *  Asistentes;
+FILE *	Mascotas;
+FILE *	Listados;
 
 
 
@@ -15,8 +18,6 @@ FILE *  Asistentes;
 struct fec{
 	int dia, mes, anio;
 };
-
-
 struct hor{
 	int desde, hasta;
 };
@@ -36,9 +37,7 @@ struct tur{
 };
 
 
-struct asist{
-	char apellidoYNombre[60], usuario[10], contrasenia[10];
-};
+
 
 struct vet{
 	int dni;
@@ -48,11 +47,25 @@ struct vet{
 };
 
 
+struct asist{
+	int cantRegistros;
+	char apellidoYNombre[30], usuario[10], contrasenia[10];
+};
+struct masc{
+	int dni, peso;
+	char apellidoYNombre[60], localidad[0], evol[380], domicilio[60];
+	struct fec fechaNacimiento;
+	struct fec fechaAtencion;
+	bool borrado;
+};
+struct list{
+	char nomVeterinario[30], nomMascota[30];
+};
 
 vet veterinario;
 asist asistente;
-
-
+masc mascota;
+list listado;
 
 
 // --------------------------------FUNCIONES---------------------------------
@@ -177,7 +190,6 @@ void numConsecutivos(char cadena[], int &cont){ //Funcion que cuneta la cantidad
 	}
 }
 
-
 void letConsecutivas(char cadena[], int &cont){  //funcion letras consecutivas
 	cont = 0;
 	int esp = 0;
@@ -189,7 +201,6 @@ void letConsecutivas(char cadena[], int &cont){  //funcion letras consecutivas
 		}
 	}
 }
-
 
 
 void convertirFecha(int vFecha, int &dia, int &mes, int &anio){
@@ -379,5 +390,41 @@ void calcularSemana(){ //Funcion para calcular los dias que trabaja
 		
 	}
 	
+}
+
+void convertirHora(int desde, int hasta, int &totalTurnos){
+	totalTurnos = ((hasta - desde) / 20) * 0.6;
+	
+	int minutoin = desde % 100;
+	int horain = ((desde % 10000) - minutoin) / 100;
+	int minutoout = hasta % 100;
+	int horaout = ((hasta % 10000) - minutoout) / 100;
+	
+	if((minutoin >= 0 && minutoin < 10) && (horain >= 0 && horain < 10)){
+		printf("Horario: 0%i:0%i\n", horain, minutoin);
+	}
+	else if((minutoin >= 0 && minutoin < 10) && (horain > 10)){
+		printf("Horario: %i:0%i\n", horain, minutoin);
+	}
+	else if((horain >= 0 && horain < 10) && (minutoin > 10)){
+		printf("Horario: 0%i:%i\n", horain, minutoin);
+	}
+	else{
+		printf("Horario: %i:%i", horain, minutoin);
+	}	
+	if((minutoout >= 0 && minutoout < 10) && (horaout >= 0 && horaout < 10)){
+		printf("Horario: 0%i:0%i\n", horaout, minutoout);
+	}
+	else if((minutoout >= 0 && minutoout < 10) && (horaout > 10)){
+		printf("Horario: %i:0%i\n", horaout, minutoout);
+	}
+	else if((horaout >= 0 && horaout < 10) && (minutoout > 10)){
+		printf("Horario: 0%i:%i\n", horaout, minutoout);
+	}
+	else{
+		printf("Horario: %i:%i", horaout, minutoout);
+	}
+	
+	printf("Cantidad de turnos aproximados del dia: %i\n\n", totalTurnos);
 }
 

@@ -448,7 +448,7 @@ main(){
 				//Se copia las cadenas en las cadenas de los registros para tener un archivo registro
 				strcpy(asistente.usuario, usrAst);
 				strcpy(asistente.contrasenia, contra);
-				
+
 				fwrite(&asistente, sizeof(asist), 1, Asistentes);
 				
 				printf("\n\n\tAsistenre registrado con exito!. Presione una tecla para continuar...");
