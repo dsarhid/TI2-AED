@@ -388,9 +388,7 @@ void calcularSemana(){ //Funcion para registrar el horario de los dias que traba
 			getch();
 			system("cls");
 		}
-		
 	}
-	
 }
 
 void convertirHora(int desde, int hasta, int &totalTurnos){

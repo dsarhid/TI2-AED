@@ -18,7 +18,7 @@ void menu(int &opcion){  //Menu para ingresar a administracion
 	printf("Ingrese opcion: ");
 	_flushall();
 	scanf("%d", &opcion);
-	if(opcion <= 0 || opcion >= 6){   //Filtra numeros entre 0 y 6
+	if(opcion <= 0 || opcion >= 5){   //Filtra numeros entre 0 y 5
 		printf("Ingresar una opcion valida. Presione una tecla para continuar...");
 		getch();
 		system("cls");
@@ -52,12 +52,11 @@ main(){
 				strcat(nomb, apell);
 				strcpy(veterinario.apellidoYNombre, nomb);  // Nombre y Apellido en el mismo vector
 				printf("Matricula: ");
-				_flushall();
-				scanf("%s", &veterinario.matricula);
+				scanf("%d", &veterinario.matricula);
 				printf("D.N.I.: ");
 				scanf("%d",&veterinario.dni);
 				printf("Telefono: ");
-                scanf("%s",veterinario.telefono);
+                scanf("%s",&veterinario.telefono);
                 cantidadVet++;
 				system("cls");
 	
@@ -244,7 +243,7 @@ main(){
 				// Se copia usuario y contraseña en los correspondientes registros  
 				strcpy(veterinario.usuario, usrVet);
 				strcpy(veterinario.contrasenia, contra);
-			
+				
 				
 				fwrite(&veterinario, sizeof(vet), 1, Veterinarios); //Se escribre el usuario y la contraseña en el archivo
 				
@@ -473,6 +472,7 @@ main(){
 					
 					fread(&veterinario, sizeof(vet), 1, Veterinarios); // Se lee el archivo antes de comenzar
 					
+					
 					while( !feof(Veterinarios)){
 						printf("\n\tVeterinario: %s\n", veterinario.apellidoYNombre);
 						calcularSemana(); //Se registra el horario por dia en el cual trabaja el veterinario
@@ -480,7 +480,7 @@ main(){
 					}
                 }
                 
-                fclose(Veterinarios); //Cierra archivo veterinarios 
+                 //Cierra archivo veterinarios 
 
 			break;
 		
