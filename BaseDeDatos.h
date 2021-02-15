@@ -40,7 +40,7 @@ struct tur{
 
 
 struct vet{
-	int dni;
+	int dni,cantRegistros;
 	char apellidoYNombre[60], matricula[10], contrasenia[10], telefono[25] ,usuario[10];
 	struct sem diasAtencion;
 	struct tur turnos;
@@ -51,11 +51,13 @@ struct asist{
 	int cantRegistros;
 	char apellidoYNombre[30], usuario[10], contrasenia[10];
 };
+
 struct masc{
 	int dni, peso;
 	char apellidoYNombre[60], localidad[0], evol[380], domicilio[60];
 	struct fec fechaNacimiento;
 	struct fec fechaAtencion;
+	struct tur;
 	bool borrado;
 };
 struct list{
@@ -424,6 +426,7 @@ void convertirHora(int desde, int hasta, int &totalTurnos){
 	else{
 		printf("Horario: %i:%i", horaout, minutoout);
 	}
+	
 	
 	printf("Cantidad de turnos aproximados del dia: %i\n\n", totalTurnos);
 }

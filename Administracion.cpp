@@ -29,7 +29,7 @@ void menu(int &opcion){  //Menu para ingresar a administracion
 
 main(){
 	system("cls");
-	int opcion = 0, bandera = 1, log = 0, contMayus = 0, contMinus = 0, contNum = 0, contEsp = 0, contLet = 0,cantidadVet=0;
+	int opcion = 0, bandera = 1, log = 0, contMayus = 0, contMinus = 0, contNum = 0, contEsp = 0, contLet = 0, mayReg=0;
 	char usrAst[10], contra[10], usrVet[10], cadAux[10], nomb[10], apell[10];
 	bool enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
 	
@@ -58,17 +58,9 @@ main(){
 				scanf("%d",&veterinario.dni);
 				printf("Telefono: ");
                 scanf("%s",veterinario.telefono);
-                cantidadVet++;
 				system("cls");
 			
-			// Esto es un prueba de lo que le comentaba antes profe, no esta el codigo original	
-				veterinario.diasAtencion.lun=0;
-	            veterinario.diasAtencion.mar=0;
-	            veterinario.diasAtencion.mie=0;
-	            veterinario.diasAtencion.jue=0;
-	            veterinario.diasAtencion.vie=0;
-	            veterinario.diasAtencion.sab=0;
-			//===============================================================================
+                calcularSemana ();			
 				
 				while(bandera != 0){  //bandera valor verdadero b=0 contrario b=1
 					enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
@@ -248,6 +240,9 @@ main(){
 					}
 				}
 				bandera=1;
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				veterinario.cantRegistros=0;
+				
 				// Se copia usuario y contraseña en los correspondientes registros  
 				strcpy(veterinario.usuario, usrVet);
 				strcpy(veterinario.contrasenia, contra);
@@ -458,7 +453,7 @@ main(){
 
 				fwrite(&asistente, sizeof(asist), 1, Asistentes);
 				
-				printf("\n\n\tAsistenre registrado con exito!. Presione una tecla para continuar...");
+				printf("\n\n\tAsistente registrado con exito!. Presione una tecla para continuar...");
 				getch();
 				system("cls");
 				
@@ -468,36 +463,56 @@ main(){
 					
 			break;
 			case 3:
-				Veterinarios = fopen("Veterinarios.dat", "rb"); //Abre archivo veterinarios
-
-				if(Veterinarios == NULL){ //Averigua si el archivo esta vacio o no
-					printf("\n\n\t Ningun veterinario registrado. Presione una tecla para continuar...");
+				Veterinarios = fopen("Veterinarios.dat","rb");
+				
+				if(Veterinarios == NULL){
+					printf("\n\n\tNingun Veterinario registrado. Presione una tecla para continuar...");
 					getch();
 					system("cls");
 					break;
 				}
 				else{
-					
-					fread(&veterinario, sizeof(vet), 1, Veterinarios); // Se lee el archivo antes de comenzar
-					
-					while( !feof(Veterinarios)){
-						printf("\n\tVeterinario: %s\n", veterinario.apellidoYNombre);
-						calcularSemana(); //Se registra el horario por dia en el cual trabaja el veterinario
-						fread(&veterinario, sizeof(vet), 1, Veterinarios);
+					while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
+						if(veterinario.cantRegistros > mayReg){
+							mayReg = veterinario.cantRegistros;
+						}
 					}
-                }
-                
-                fclose(Veterinarios); //Cierra archivo veterinarios 
+					
+					rewind(Veterinarios);
+					
+					while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
+						if(mayReg == veterinario.cantRegistros){
+							printf("\n\tGanador del bono: \n\n");
+							printf("\n\tVeterinario: %s", veterinario.apellidoYNombre);
+							printf("\n\tCantidad de Turnos: %i", veterinario.cantRegistros);
+						}
+					}
+					printf("\n\n\tPresione una tecla para continuar...");
+					getch();
+					system("cls");
+				}
+				fclose(Veterinarios);
  
 			break;
-			
-			case 4:
-				
-				break;
-		
+		    case 4:
+		    	Veterinarios = fopen("Veterinarios.dat", "rb"); //Abre archivo veterinarios
+		    	fread(&veterinario, sizeof(vet), 1, Veterinarios); // Se lee el archivo antes de comenzar
+					
+					while( !feof(Veterinarios)){
+						
+						printf("\n\tVeterinario: %s\n", veterinario.apellidoYNombre);
+					    printf("\n\tMatricula: %s\n", veterinario.matricula);
+					    printf("\n\tLUnes: %d\n", veterinario.diasAtencion.lunh.desde);
+				       
+						fread(&veterinario, sizeof(vet), 1, Veterinarios);
+					}
+                
+                
+                fclose(Veterinarios); //Cierra archivo veterinarios 
+		    	break;
+		    	
 		
         }
 				
 	  getch();
    }}
-
