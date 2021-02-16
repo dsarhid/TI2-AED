@@ -28,13 +28,15 @@ main(){
 	system("cls");
 	int op = 0, b = 1, bmenu = 1, log = 0, vFecha, dia, mes, anio, horain, minutoin, horaout, minutoout, totalTurnos;
 	char usr[10], pass[10], apelYNom[30], nom[30], apel[30];
-	bool coincidir = false;
+	bool coincidir = true;
 	
 	while(op != 5){
 		menu(op);
+		system("cls");
 		switch (op){
 			case 1:
-				Asistentes = fopen("Asistentes.dat", "rb");											// Abro archivo Empleados en modo lectura para binarios.
+				Asistentes=fopen("Asistentes.dat", "rb");
+				
 				if(Asistentes == NULL){
 					printf("\nNingun Empleado registrado. Presione una tecla para continuar...");
 					getch();
@@ -43,7 +45,7 @@ main(){
 				}
 				else{
 					while(b != 0){
-						if(bmenu == 0){
+						if(bmenu == 0 && log == 0){
 							printf("\nModulo del Asistente ( Recepcion )\n");
 							printf("\n==========================================\n\n");
 							printf("1.- Iniciar Sesion.\n");
@@ -59,8 +61,7 @@ main(){
 						
 						while(fread(&asistente, sizeof(asist), 1, Asistentes) != NULL){		// Lee Empleados hasta final del archivo
 							if(strcmp(usr, asistente.usuario) == 0){						// Compara usuario leido con el usuario ingresada, se iguala a 0 para ver si son iguales.
-								coincidir = true;										// Usuario encontrado.
-								printf("Ingrese contrasenia: ", -92);
+								printf("Ingrese contrasenia: ");
 								scanf("%s", &pass);
 								if(strcmp(pass, asistente.contrasenia) == 0){			// Compara contraseña leido con la contraseña ingresada, se iguala a 0 para ver si son iguales.
 									printf("\n\n\tAsistente logueado con exito. Presione una tecla para continuar...");
@@ -205,7 +206,7 @@ main(){
 							printf("\nListado de veterinarios y sus respectivos dias y horarios: \n\n");
 							while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
 								printf("Nombre Completo: %s\n", veterinario.apellidoYNombre);
-								printf("Dias: \n");
+								
 								if(veterinario.diasAtencion.lun == 1){
 									printf("\n\tLunes: \n\t\t");
 									convertirHora(veterinario.diasAtencion.lunh.desde, veterinario.diasAtencion.lunh.hasta, totalTurnos);

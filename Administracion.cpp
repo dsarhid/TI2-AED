@@ -18,7 +18,7 @@ void menu(int &opcion){  //Menu para ingresar a administracion
 	printf("Ingrese opcion: ");
 	_flushall();
 	scanf("%d", &opcion);
-	if(opcion <= 0 || opcion >= 5){   //Filtra numeros entre 0 y 5
+	if(opcion <= 0 || opcion >= 6){   //Filtra numeros entre 0 y 5
 		printf("Ingresar una opcion valida. Presione una tecla para continuar...");
 		getch();
 		system("cls");
@@ -149,7 +149,7 @@ main(){
 					contMayus = 0, contMinus = 0, contNum = 0;
 					system("cls");
 					
-					printf("\nIngrese contrase%ca: \n", -92); // se escribe de esa manera para que aparezca la ñ por pantalla
+					printf("\nIngrese contrase%ca: \n", -92); // se escribe de esa manera para que aparezca la ï¿½ por pantalla
 					printf("\n\tA. Debera contener al menos una letra mayuscula, una letra minuscula y un numero.");
 					printf("\n\tB. No podra contener ningun caracter de puntuacion,");
 					printf("\n\t   ni acentos, ni espacios. Solo caracteres alfanumericos.");
@@ -162,7 +162,7 @@ main(){
 					_flushall();
 					scanf("%s", &contra);
 					
-					strcpy(cadAux, contra); // Se utiliza una cadena auxiliar para copiar la contraseña ingresada
+					strcpy(cadAux, contra); // Se utiliza una cadena auxiliar para copiar la contraseï¿½a ingresada
 					strupr(cadAux); // Convertir a mayusculas
 					
 					for(int i=0;i<strlen(contra);i++){ //Contador de mayusculas, pero se verifica si no es un numero primero
@@ -227,25 +227,25 @@ main(){
 					else{
 						enunciadoE = true;
 					}
-					// Se agrupan todos los valores booleanos falsos para pedir que ingrese una nueva contraseña
+					// Se agrupan todos los valores booleanos falsos para pedir que ingrese una nueva contraseï¿½a
 					if(enunciadoA == false || enunciadoB == false || enunciadoC == false || enunciadoD == false || enunciadoE == false){
 						printf("\nPresione una tecla para volver a ingresar...");
 						getch();
 						system("cls");
 					}
 					//De la misma manera se agrupan los valores booleanos verdaderos para cambiar el valor de la bandera
-					// y aceptar la contraseña ingresada
+					// y aceptar la contraseï¿½a ingresada
 					if(enunciadoA == true && enunciadoB == true && enunciadoC == true && enunciadoD == true && enunciadoE == true){
 						bandera = 0;
 					}
 				}
 				bandera=1;
-				// Se copia usuario y contraseña en los correspondientes registros  
+				// Se copia usuario y contraseï¿½a en los correspondientes registros  
 				strcpy(veterinario.usuario, usrVet);
 				strcpy(veterinario.contrasenia, contra);
 				
 				
-				fwrite(&veterinario, sizeof(vet), 1, Veterinarios); //Se escribre el usuario y la contraseña en el archivo
+				fwrite(&veterinario, sizeof(vet), 1, Veterinarios); //Se escribre el usuario y la contraseï¿½a en el archivo
 				
 				printf("\n\n\tVeterinario registrado con exito!. Presione una tecla para continuar...");
 				getch();
@@ -342,14 +342,14 @@ main(){
 						system("cls");
 					}
 					
-					//Se juntan todos los valores booleanos verdaderos para cambiar el valor de bandera y solicitar la contraseña del usuario
+					//Se juntan todos los valores booleanos verdaderos para cambiar el valor de bandera y solicitar la contraseï¿½a del usuario
 					if(enunciadoA == true && enunciadoB == true && enunciadoC == true && enunciadoD == true){
 						bandera = 0;
 					}
 				}
 				
 				
-				bandera = 1; //Al cambiar el valor de la bandera se acepta el usuario y solicita contraseña del mismo
+				bandera = 1; //Al cambiar el valor de la bandera se acepta el usuario y solicita contraseï¿½a del mismo
 				
 				while(bandera != 0){
 					enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
@@ -368,8 +368,8 @@ main(){
 					_flushall();
 					scanf("%s", &contra);
 					
-					// Al igual que el caso 1 se codifica de la misma manera el ingreso de contraseña del usuario
-					strcpy(cadAux, contra); //El contenido de la cadena contraseña se copia en la cadAux
+					// Al igual que el caso 1 se codifica de la misma manera el ingreso de contraseï¿½a del usuario
+					strcpy(cadAux, contra); //El contenido de la cadena contraseï¿½a se copia en la cadAux
 					strupr(cadAux); //Convertidor de minusculas a mayusculas
 					
 					for(int i=0;i<strlen(contra);i++){ //cuenta la cantidad de caracteres mayusculas
@@ -408,7 +408,7 @@ main(){
 						enunciadoB = true;
 					}
 					
-					if(strlen(contra) < 6 || strlen(contra) > 32){ //Condicion de longitud de la contraseña
+					if(strlen(contra) < 6 || strlen(contra) > 32){ //Condicion de longitud de la contraseï¿½a
 						printf("Contrase%ca no cumple con la condicion \"C.\"\n", -92);
 					}
 					else{
@@ -433,13 +433,13 @@ main(){
 						enunciadoE = true;
 					}
 					
-					//Se juntan todos los valores booleanos falsos para volver a solicitar una contraseña
+					//Se juntan todos los valores booleanos falsos para volver a solicitar una contraseï¿½a
 					if(enunciadoA == false || enunciadoB == false || enunciadoC == false || enunciadoD == false || enunciadoE == false){
 						printf("\nPresione una tecla para volver a ingresar...");
 						getch();
 						system("cls");
 					}
-					//Se juntan todos los valores booleanos verdaderos para aceptar la contraseña, cambiando el valor de la bandera
+					//Se juntan todos los valores booleanos verdaderos para aceptar la contraseï¿½a, cambiando el valor de la bandera
 					if(enunciadoA == true && enunciadoB == true && enunciadoC == true && enunciadoD == true && enunciadoE == true){
 						bandera = 0;
 					}
@@ -450,12 +450,10 @@ main(){
 
 				fwrite(&asistente, sizeof(asist), 1, Asistentes);
 				
-				printf("\n\n\tAsistenre registrado con exito!. Presione una tecla para continuar...");
+				printf("\n\n\tAsistente registrado con exito!. Presione una tecla para continuar...");
 				getch();
 				system("cls");
-				
-				
-				
+
 			    fclose(Asistentes); //Se cierra archivo Asistentes
 					
 			break;
@@ -483,8 +481,43 @@ main(){
                  //Cierra archivo veterinarios 
 
 			break;
-		
-		
+
+			case 4: 
+				Veterinarios = fopen("Veterinarios.dat","rb");
+				
+				if(Veterinarios == NULL){
+					printf("\n\n\tNingun veterinario registrado. Presione una tecla para continuar...");
+					getch();
+					system("cls");
+					break;
+				}
+				else{
+					while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
+						if(veterinario.cantRegistros > mayReg){
+							mayReg = veterinario.cantRegistros;
+						}
+					}
+					
+					rewind(Veterinarios);
+					
+					while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
+						if(mayReg == veterinario.cantRegistros){
+							printf("\n\tGanador del bono: \n\n");
+							printf("\n\tVeterinario: %s", veterinario.apellidoYNombre);
+							printf("\n\tCantidad de Turnos: %d", veterinario.cantRegistros);
+						}
+					}
+					printf("\n\n\tPresione una tecla para continuar...");
+					getch();
+					system("cls");
+				}
+				fclose(Veterinarios);
+		    	break;
+		    	
+			case 5:
+				printf("\n\tGracias por utilizar nuestro programa!!\n\n");
+				system("pause");
+				return 0;
         }
 				
 	  getch();

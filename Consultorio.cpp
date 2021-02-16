@@ -59,7 +59,7 @@ main(){
 						while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
 							if(Mat == matAux){
 								Coincidir = true;
-								printf("Ingrese contrasenia: ", -92);
+								printf("Ingrese contrasenia: ");
 								scanf("%s", &Pass);
 								if(strcmp(Pass, veterinario.contrasenia) == 0){
 									printf("\n\n\tveterinario logueado con exito. Presione una tecla para continuar...");
@@ -135,22 +135,11 @@ main(){
 								if(strcmp(Nombre, mascota.apellidoYNombre) == 0){
 									system("cls");
 									printf("\n\n\tMascota encontrada..");
-									//Sleep(700);
-									//printf("\n\n\tCargando datos");
-									//Sleep(700);
-									//printf(".");
-									//Sleep(700);
-									//printf(".");
-									//Sleep(700);
-									//printf(".");
-									//Sleep(700);
-									//printf(".\n\n\n");
-									//Sleep(300);
+									
 									printf("\t\tApellido y Nombre: %s\n", mascota.apellidoYNombre);
 									printf("\t\tNumero de documento (DNI): %i\n", mascota.dni);
 									printf("\t\tFecha de Nacimiento: %i/%i/%i\n", mascota.fechaNacimiento.dia, mascota.fechaNacimiento.mes, mascota.fechaNacimiento.anio);
 									printf("\t\tLocalidad: %s\n", mascota.localidad);
-									//printf("\t\tEdad: %i a%os\n", mascota.edad, -92);
 									printf("\t\tPeso: %i kg.\n", mascota.peso);
 									
 									
