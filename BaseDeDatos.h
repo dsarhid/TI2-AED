@@ -9,6 +9,7 @@ FILE *	Veterinarios;
 FILE *  Asistentes;
 FILE *	Mascotas;
 FILE *	Listados;
+FILE *  Turnos;
 
 
 
@@ -37,11 +38,8 @@ struct tur{
 	int dni, matricula;
 	struct fec fechaAtencion;
 	char evol[380];
-
+	bool borrado;
 };
-
-
-
 
 struct vet{
 	int dni,cantRegistros;
@@ -73,6 +71,7 @@ asist asistente;
 masc mascota;
 list listado; 
 sem diasAtencion;
+tur turno;
 
 // --------------------------------FUNCIONES---------------------------------
 

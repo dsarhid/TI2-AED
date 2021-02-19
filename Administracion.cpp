@@ -29,9 +29,9 @@ void menu(int &opcion){  //Menu para ingresar a administracion
 
 main(){
 	system("cls");
-	int opcion = 0, bandera = 1, log = 0, contMayus = 0, contMinus = 0, contNum = 0, contEsp = 0, contLet = 0, mayReg=0;
+	int opcion = 0, bandera = 1, log = 0, contMayus = 0, contMinus = 0, contNum = 0, contEsp = 0, contLet = 0, mayReg=0, mes;
 	char usrAst[10], contra[10], usrVet[10], cadAux[10], nomb[10], apell[10];
-	bool enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
+	bool enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false, existe=false;
 	
 	while(opcion != 6){
 		menu(opcion); // Llamada a la funcion menu
@@ -57,9 +57,7 @@ main(){
 				scanf("%d",&veterinario.dni);
 				printf("Telefono: ");
                 scanf("%s",veterinario.telefono);
-				system("cls");
-			
-                calcularSemana ();			
+				system("cls");	
 				
 				while(bandera != 0){  //bandera valor verdadero b=0 contrario b=1
 					enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
@@ -459,36 +457,58 @@ main(){
 			    fclose(Asistentes); //Se cierra archivo Asistentes
 					
 			break;
+			
 			case 3:
-				Veterinarios = fopen("Veterinarios.dat","rb");
+				system("cls");
 				
-				if(Veterinarios == NULL){
-					printf("\n\n\tNingun Veterinario registrado. Presione una tecla para continuar...");
-					getch();
-					system("cls");
-					break;
+				Turnos = fopen("Turnos.dat","rb");
+				
+				
+				printf("ATENCIONES POR VETERINARIOS\n\n");
+				
+				printf("Ingresar mes del que quiere conocer las atenciones: ");
+				scanf("%d", &mes);
+				
+				Turnos=fopen("Turnos.dat", "rb");
+				
+				if(Turnos==NULL)
+				{
+					printf("Aun no se ha registrado ningun turno.\n");
 				}
-				else{
-					while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
-						if(veterinario.cantRegistros > mayReg){
-							mayReg = veterinario.cantRegistros;
+				else
+				{
+					fread(&turno, sizeof(tur), 1, Turnos);
+				
+					while(!feof(Turnos))
+					{
+						if(turno.fechaAtencion.mes==mes && turno.borrado==true)
+						{
+							printf("\n====================\n\n");
+							
+							printf("Fecha de atencion: %-0.2d/%-0.2d/%d", turno.fechaAtencion.dia, turno.fechaAtencion.mes, turno.fechaAtencion.anio);
+											
+							printf("\nDNI del duenio: %d", turno.dni);
+							
+							printf("\nMatricula del veterinario que atendio: %d", turno.matricula);
+							
+							printf("\nDetalle de la consulta: %s", turno.evol);
+							
+							printf("\n\n");
+							
+							existe=true;
 						}
+						
+						fread(&turno, sizeof(tur), 1, Turnos);
 					}
 					
-					rewind(Veterinarios);
-					
-					while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
-						if(mayReg == veterinario.cantRegistros){
-							printf("\n\tGanador del bono: \n\n");
-							printf("\n\tVeterinario: %s", veterinario.apellidoYNombre);
-							printf("\n\tCantidad de Turnos: %i", veterinario.cantRegistros);
-						}
+					if(existe==false)
+					{
+						printf("\n>No se ha realizado ningun turno en el mes seleccionado.\n\n");
 					}
-					printf("\n\n\tPresione una tecla para continuar...");
-					getch();
-					system("cls");
 				}
-				fclose(Veterinarios);
+				
+				system("pause");
+				system("cls");
 			break;
 
 			case 4: 
