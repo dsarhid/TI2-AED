@@ -26,8 +26,8 @@ void menu(int &op){
 
 main(){
 	system("cls");
-	int op = 0, b = 1, bmenu = 1, log = 0, vFecha, dia, mes, anio, horain, minutoin, horaout, minutoout, totalTurnos, banderaMatricula, z=2, i;
-	char usr[10], pass[10], apelYNom[30], nom[30], apel[30], matriculaVetTurno[10];
+	int op = 0, b = 1, bmenu = 1, log = 0, vFecha, dia, mes, anio, horain, minutoin, horaout, minutoout, totalTurnos, banderaMatricula, z=2, i, matriculaVetTurno;
+	char usr[10], pass[10], apelYNom[30], nom[30], apel[30];
 	bool coincidir = false;
 	
 	while(op != 5){
@@ -128,38 +128,38 @@ main(){
 					    fread(&veterinario, sizeof(vet), 1, Veterinarios);
 						
 						printf("Ingrese la Matricula del veterinario en turno: ");
-						scanf("%s",&matriculaVetTurno);
+						scanf("%d",&matriculaVetTurno);
 						   
-							while( !feof(Veterinarios)){
-			                        fread(&veterinario, sizeof(vet), 1, Veterinarios);
-					                     if(veterinario.matricula==matriculaVetTurno){
-							 	             banderaMatricula=0;
-							            }
-							        fread(&veterinario, sizeof(vet), 1, Veterinarios);
-							}
+						while( !feof(Veterinarios)){
+			            	fread(&veterinario, sizeof(vet), 1, Veterinarios);
+			                if(veterinario.matricula==matriculaVetTurno){
+			            		banderaMatricula=0;
+					        }
+					        fread(&veterinario, sizeof(vet), 1, Veterinarios);
+						}
 					    
-						    fclose (Veterinarios);
+						fclose (Veterinarios);
 					         
-					         while (banderaMatricula==1){
-					         	
-								 printf("\n Ingresar una matricula valida, no cumple con las matriculas registradas. ");
+				    	while (banderaMatricula==1){
+					     	
+							 printf("\n Ingresar una matricula valida, no cumple con las matriculas registradas. ");
 
-					             printf("Ingrese la Matricula del veterinario en turno: ");
-						         scanf("%s",&matriculaVetTurno);
-						         Veterinarios= fopen("Veterinarios.dat","");
-					             fread(&veterinario, sizeof(vet), 1, Veterinarios);
+					         printf("Ingrese la Matricula del veterinario en turno: ");
+					         scanf("%s",&matriculaVetTurno);
+					         Veterinarios= fopen("Veterinarios.dat","");
+					         fread(&veterinario, sizeof(vet), 1, Veterinarios);
                 
-                                 while( !feof(Veterinarios)){
-			                             fread(&veterinario, sizeof(vet), 1, Veterinarios);
-					                        if(veterinario.matricula==matriculaVetTurno){
-							 	                 banderaMatricula=0;
-							                }
-							             fread(&veterinario, sizeof(vet), 1, Veterinarios);
-							     }
+                             while( !feof(Veterinarios)){
+			                     fread(&veterinario, sizeof(vet), 1, Veterinarios);
+					             if(veterinario.matricula==matriculaVetTurno){
+					                 banderaMatricula=0;
+					             }
+					             fread(&veterinario, sizeof(vet), 1, Veterinarios);
+						     }
 					    
-						         fclose (Veterinarios);
+					         fclose (Veterinarios);
 					         
-                             }
+                        }
 						
 						Mascotas = fopen("Mascotas.dat", "a+b");					
 					    
@@ -323,6 +323,9 @@ main(){
 							fwrite(&turno, sizeof(tur), 1, Turnos); //Se escribre el usuario y la contrase�a en el archivo
 				
 							printf("\n\n\tTurno registrado con exito!. Presione una tecla para continuar...");
+							veterinario.cantRegistros++;
+							fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
+							
 							getch();
 							system("cls");
 							
@@ -401,6 +404,7 @@ main(){
 				fclose(Mascotas);
 				fclose(Listados);
 				fclose(Asistentes);
+				fclose(Turnos);
 			break;
 		}
 	}

@@ -43,7 +43,8 @@ struct tur{
 
 struct vet{
 	int dni,cantRegistros;
-	char apellidoYNombre[60], matricula[10], contrasenia[10], telefono[25] ,usuario[10];
+	char apellidoYNombre[60], contrasenia[10], telefono[25] ,usuario[10];
+	int matricula;
 	struct sem diasAtencion;
 	struct tur turnos;
 };
@@ -59,7 +60,7 @@ struct masc{
 	char apellidoYNombre[60], localidad[0], evol[380], domicilio[60];
 	struct fec fechaNacimiento;
 	struct fec fechaAtencion;
-	struct tur;
+	struct tur turnos;
 	bool borrado;
 };
 struct list{
