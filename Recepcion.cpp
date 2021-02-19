@@ -26,9 +26,15 @@ void menu(int &op){
 
 main(){
 	system("cls");
+<<<<<<< HEAD
 	int op = 0, b = 1, bmenu = 1, log = 0, vFecha, dia, mes, anio, horain, minutoin, horaout, minutoout, totalTurnos;
 	char usr[10], pass[10], apelYNom[30], nom[30], apel[30];
 	bool coincidir = true;
+=======
+	int op = 0, b = 1, bmenu = 1, log = 0, vFecha, dia, mes, anio, horain, minutoin, horaout, minutoout, totalTurnos, banderaMatricula;
+	char usr[10], pass[10], apelYNom[30], nom[30], apel[30], matriculaVetTurno[10];
+	bool coincidir = false;
+>>>>>>> 303b609a427f7385e0174d1c3344f73e74871271
 	
 	while(op != 5){
 		menu(op);
@@ -115,6 +121,7 @@ main(){
 				else{
 					Asistentes = fopen("Asistentes.dat", "rb");
 					
+					
 					if(Asistentes == NULL){
 						printf("\nNingun asistente registrado. Primero registre un asistente en Administracion.");
 						getch();
@@ -122,60 +129,101 @@ main(){
 						break;
 					}
 					else{
+						
+						Veterinarios= fopen("Veterinarios.dat","");
+					    fread(&veterinario, sizeof(vet), 1, Veterinarios);
+						
+						printf("Ingrese la Matricula del veterinario en turno: ");
+						scanf("%s",&matriculaVetTurno);
+						   
+							while( !feof(Veterinarios)){
+			                        fread(&veterinario, sizeof(vet), 1, Veterinarios);
+					                     if(veterinario.matricula==matriculaVetTurno){
+							 	             banderaMatricula=0;
+							            }
+							        fread(&veterinario, sizeof(vet), 1, Veterinarios);
+							}
+					    
+						    fclose (Veterinarios);
+					         
+					         while (banderaMatricula==1){
+					         	
+								 printf("\n Ingresar una matricula valida, no cumple con las matriculas registradas. ");
+
+					             printf("Ingrese la Matricula del veterinario en turno: ");
+						         scanf("%s",&matriculaVetTurno);
+						         Veterinarios= fopen("Veterinarios.dat","");
+					             fread(&veterinario, sizeof(vet), 1, Veterinarios);
+                
+                                 while( !feof(Veterinarios)){
+			                             fread(&veterinario, sizeof(vet), 1, Veterinarios);
+					                        if(veterinario.matricula==matriculaVetTurno){
+							 	                 banderaMatricula=0;
+							                }
+							             fread(&veterinario, sizeof(vet), 1, Veterinarios);
+							     }
+					    
+						         fclose (Veterinarios);
+					         
+                             }
+						
 						Mascotas = fopen("Mascotas.dat", "a+b");					
-					
-						printf("Complete los siguientes datos de la mascota:\n\n");
-						printf("Nombre: ");
-						_flushall();
-						scanf("%s", &nom);
-						printf("Apellido: ");
-						_flushall();
-						scanf("%s", &apel);
-						strcat(nom, " ");
-						strcat(nom, apel);
-						strcpy(mascota.apellidoYNombre, nom);
-						printf("Domicilio: ");
-						_flushall();
-						scanf("%s", &mascota.domicilio);
-						printf("DNI del duenio: ");
-						_flushall();
-						scanf("%i", &mascota.dni);
-						printf("Localidad: ");
-						_flushall();
-						scanf("%s", &mascota.localidad);
-						system("cls");
-						printf("Peso: ");
-						_flushall();
-						scanf("%i", &mascota.peso);
-						printf("Fecha de nacimiento con formato (dd mm aaaa): ");
-						_flushall();
-						scanf("%i", &vFecha);
-						convertirFecha(vFecha, dia, mes, anio);
-						mascota.fechaNacimiento.dia = dia;
-						mascota.fechaNacimiento.mes = mes;
-						mascota.fechaNacimiento.anio = anio;
-						fwrite(&mascota, sizeof(masc), 1, Mascotas);
-						printf("\n\n\tMascota registrada con exito!. Presione una tecla para continuar...");
-						getch();
-						system("cls");
-						
+					    
+		                   printf("Complete los siguientes datos de la mascota:\n\n");
+						   printf("Nombre: ");
+						   _flushall();
+						   scanf("%s", &nom);
+						   printf("Apellido: ");
+						   _flushall();
+						   scanf("%s", &apel);
+						   strcat(nom, " ");
+						   strcat(nom, apel);
+						   strcpy(mascota.apellidoYNombre, nom);
+						   printf("Domicilio: ");
+						   _flushall();
+						   scanf("%s", &mascota.domicilio);
+						   printf("DNI del duenio: ");
+						   _flushall();
+						   scanf("%i", &mascota.dni);
+						   printf("Localidad: ");
+						   _flushall();
+						   scanf("%s", &mascota.localidad);
+						   system("cls");
+						   printf("Peso: ");
+						   _flushall();
+						   scanf("%i", &mascota.peso);
+						   printf("Fecha de nacimiento con formato (dd mm aaaa): ");
+						   _flushall();
+						   scanf("%i", &vFecha);
+						   convertirFecha(vFecha, dia, mes, anio);
+						   mascota.fechaNacimiento.dia = dia;
+						   mascota.fechaNacimiento.mes = mes;
+						   mascota.fechaNacimiento.anio = anio;
+						   fwrite(&mascota, sizeof(masc), 1, Mascotas);
+						   printf("\n\n\tMascota registrada con exito!. Presione una tecla para continuar...");
+						   getch();
+						   system("cls");
+						   						
 						fclose(Mascotas);
-						
-						while(fread(&asistente, sizeof(asist), 1, Asistentes) != NULL){
-							if(strcmp(apelYNom, asistente.apellidoYNombre) == 0){
-								if(asistente.cantRegistros == NULL || asistente.cantRegistros == 0){
-									asistente.cantRegistros = 1;
-									fwrite(&asistente, sizeof(asist), 1, Asistentes);
+						//////////////////////////////////////////////////////////////////////////////////////////////////
+						//////////////////////////////////////////////////////////////////////////////////////////////////
+						while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
+							if(strcmp(apelYNom, veterinario.apellidoYNombre) == 0){
+								if(veterinario.cantRegistros == NULL || veterinario.cantRegistros == 0){
+									veterinario.cantRegistros = 1;
+									fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
 								}
 								else{
 									asistente.cantRegistros += 1;
-									fwrite(&asistente, sizeof(asist), 1, Asistentes);
+									fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
 								}
 							}
 						}
 					}
 				}
+				fclose(Veterinarios);
 				fclose(Asistentes);
+		
 			break;
 			case 3:
 				Veterinarios = fopen("Veterinarios.dat", "r+b");
@@ -242,7 +290,9 @@ main(){
 									convertirHora(veterinario.diasAtencion.sabh.desde, veterinario.diasAtencion.sabh.hasta, totalTurnos);
 									veterinario.turnos.turnSab = totalTurnos;
 									fwrite(&veterinario, sizeof(vet), 1, Veterinarios);
+							
 								}
+							
 							}
 							printf("Presione una tecla para continuar...");
 							getch();

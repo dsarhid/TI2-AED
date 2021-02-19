@@ -29,7 +29,7 @@ void menu(int &opcion){  //Menu para ingresar a administracion
 
 main(){
 	system("cls");
-	int opcion = 0, bandera = 1, log = 0, contMayus = 0, contMinus = 0, contNum = 0, contEsp = 0, contLet = 0,cantidadVet=0;
+	int opcion = 0, bandera = 1, log = 0, contMayus = 0, contMinus = 0, contNum = 0, contEsp = 0, contLet = 0, mayReg=0;
 	char usrAst[10], contra[10], usrVet[10], cadAux[10], nomb[10], apell[10];
 	bool enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
 	
@@ -56,11 +56,10 @@ main(){
 				printf("D.N.I.: ");
 				scanf("%d",&veterinario.dni);
 				printf("Telefono: ");
-                scanf("%s",&veterinario.telefono);
-                cantidadVet++;
+                scanf("%s",veterinario.telefono);
 				system("cls");
-	
 			
+                calcularSemana ();			
 				
 				while(bandera != 0){  //bandera valor verdadero b=0 contrario b=1
 					enunciadoA = false, enunciadoB = false, enunciadoC = false, enunciadoD = false, enunciadoE = false;
@@ -136,7 +135,7 @@ main(){
 						getch();
 						system("cls");
 					}
-					//Se agrupan todos los valores booleanos verdaderos para cambiar el valor de la bandera b
+					//Se agrupan todos los valores booleanos verdaderos para cambiar el valor de la bandera 
 					if(enunciadoA == true && enunciadoB == true && enunciadoC == true && enunciadoD == true){
 						bandera = 0;
 					}
@@ -240,6 +239,9 @@ main(){
 					}
 				}
 				bandera=1;
+				/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				veterinario.cantRegistros=0;
+				
 				// Se copia usuario y contrase�a en los correspondientes registros  
 				strcpy(veterinario.usuario, usrVet);
 				strcpy(veterinario.contrasenia, contra);
@@ -458,25 +460,49 @@ main(){
 					
 			break;
 			case 3:
-				Veterinarios = fopen("Veterinarios.dat", "r+b"); //Abre archivo veterinarios
-
-				if(Veterinarios == NULL){ //Averigua si el archivo esta vacio o no
-					printf("\n\n\t Ningun veterinario registrado. Presione una tecla para continuar...");
+				Veterinarios = fopen("Veterinarios.dat","rb");
+				
+				if(Veterinarios == NULL){
+					printf("\n\n\tNingun Veterinario registrado. Presione una tecla para continuar...");
 					getch();
 					system("cls");
 					break;
 				}
 				else{
+					while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
+						if(veterinario.cantRegistros > mayReg){
+							mayReg = veterinario.cantRegistros;
+						}
+					}
 					
-					fread(&veterinario, sizeof(vet), 1, Veterinarios); // Se lee el archivo antes de comenzar
+					rewind(Veterinarios);
+					
+					while(fread(&veterinario, sizeof(vet), 1, Veterinarios) != NULL){
+						if(mayReg == veterinario.cantRegistros){
+							printf("\n\tGanador del bono: \n\n");
+							printf("\n\tVeterinario: %s", veterinario.apellidoYNombre);
+							printf("\n\tCantidad de Turnos: %i", veterinario.cantRegistros);
+						}
+					}
+					printf("\n\n\tPresione una tecla para continuar...");
+					getch();
+					system("cls");
+				}
+				fclose(Veterinarios);
+			break;
+		    case 4:
+		    	Veterinarios = fopen("Veterinarios.dat", "rb"); //Abre archivo veterinarios
+		    	fread(&veterinario, sizeof(vet), 1, Veterinarios); // Se lee el archivo antes de comenzar
 					
 					
 					while( !feof(Veterinarios)){
+						
 						printf("\n\tVeterinario: %s\n", veterinario.apellidoYNombre);
-						calcularSemana(); //Se registra el horario por dia en el cual trabaja el veterinario
+					    printf("\n\tMatricula: %s\n", veterinario.matricula);
+					    printf("\n\tLunes: %d\n", veterinario.diasAtencion.lunh.desde);
 						fread(&veterinario, sizeof(vet), 1, Veterinarios);
 					}
-                }
+                
                 
                  //Cierra archivo veterinarios 
 
@@ -522,4 +548,3 @@ main(){
 				
 	  getch();
    }}
-
