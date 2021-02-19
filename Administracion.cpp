@@ -490,23 +490,6 @@ main(){
 				}
 				fclose(Veterinarios);
 			break;
-		    case 4:
-		    	Veterinarios = fopen("Veterinarios.dat", "rb"); //Abre archivo veterinarios
-		    	fread(&veterinario, sizeof(vet), 1, Veterinarios); // Se lee el archivo antes de comenzar
-					
-					
-					while( !feof(Veterinarios)){
-						
-						printf("\n\tVeterinario: %s\n", veterinario.apellidoYNombre);
-					    printf("\n\tMatricula: %s\n", veterinario.matricula);
-					    printf("\n\tLunes: %d\n", veterinario.diasAtencion.lunh.desde);
-						fread(&veterinario, sizeof(vet), 1, Veterinarios);
-					}
-                
-                
-                 //Cierra archivo veterinarios 
-
-			break;
 
 			case 4: 
 				Veterinarios = fopen("Veterinarios.dat","rb");

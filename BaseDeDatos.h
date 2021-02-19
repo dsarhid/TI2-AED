@@ -34,12 +34,10 @@ struct sem{
 
 struct tur{
 	int turnLun, turnMar, turnMie, turnJue, turnVie, turnSab;
-<<<<<<< HEAD
 	int dni, matricula;
 	struct fec fechaAtencion;
 	char evol[380];
-=======
->>>>>>> 303b609a427f7385e0174d1c3344f73e74871271
+
 };
 
 
